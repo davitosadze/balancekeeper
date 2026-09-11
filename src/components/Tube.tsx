@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   glassFill: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   sheen: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   lockOverlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(71, 85, 105, 0.25)',

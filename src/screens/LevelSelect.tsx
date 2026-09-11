@@ -47,11 +47,11 @@ export default function LevelSelect() {
           accessibilityLabel="Back to main menu"
           style={styles.backButton}
         >
-          <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFillObject} />
+          <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFill} />
           <Text style={styles.backButtonText}>←</Text>
         </Pressable>
         <View style={styles.titlePill}>
-          <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFillObject} />
+          <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFill} />
           <Text style={styles.header}>Select Level</Text>
         </View>
       </View>

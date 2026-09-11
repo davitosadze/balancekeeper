@@ -20,7 +20,7 @@ export default function SceneBackground() {
 
   return (
     <View pointerEvents="none" style={styles.container}>
-      <LinearGradient colors={SKY_THEME.skyGradient} style={StyleSheet.absoluteFillObject} />
+      <LinearGradient colors={SKY_THEME.skyGradient} style={StyleSheet.absoluteFill} />
       <View style={[styles.sunGlow, { backgroundColor: SKY_THEME.sunGlow }]} />
 
       <View
@@ -65,7 +65,7 @@ export default function SceneBackground() {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     overflow: 'hidden',
   },
   sunGlow: {

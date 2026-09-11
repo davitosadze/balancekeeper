@@ -21,7 +21,7 @@ const ORBS: Orb[] = [
 /**
  * Soft drifting ambient glow orbs for a screen's dark background, matching
  * the design reference's starfield/glow treatment. Purely decorative;
- * renders behind all other content via absoluteFillObject + pointerEvents none.
+ * renders behind all other content via absoluteFill + pointerEvents none.
  */
 export default function AmbientBackground() {
   const { width } = useWindowDimensions();
@@ -79,7 +79,7 @@ function Orb({ orb, screenWidth }: { orb: Orb; screenWidth: number }) {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     overflow: 'hidden',
   },
   orb: {

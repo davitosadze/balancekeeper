@@ -63,22 +63,22 @@ export const BALL_GRADIENT_SHADES: Record<BallColor, { light: string; dark: stri
  * Everything else in the app keeps the dark UI_COLORS family.
  */
 export const SKY_THEME = {
-  skyGradient: ['#5eb9e4', '#9ed8f1', '#d4ebf0'],
+  skyGradient: ['#5eb9e4', '#9ed8f1', '#d4ebf0'] as const,
   sunGlow: 'rgba(255, 247, 214, 0.55)',
   mountainFar: '#93b8c9',
   mountainNear: '#6f9aab',
-  water: ['#5eb3c9', '#3f8fa8'],
+  water: ['#5eb3c9', '#3f8fa8'] as const,
   waterShimmer: 'rgba(255, 255, 255, 0.35)',
 };
 
 /** Wood tones for the ball tray recessed into the table. */
 export const TRAY_WOOD_TONES = {
-  gradient: ['#8d5a30', '#5c3a1e'],
+  gradient: ['#8d5a30', '#5c3a1e'] as const,
   border: '#3d2513',
 };
 
 /** Dark glass gradient used behind header pills (pause, level, moves, hint). */
-export const HEADER_PILL_GRADIENT = ['rgba(36, 48, 68, 0.95)', 'rgba(13, 20, 34, 0.95)'];
+export const HEADER_PILL_GRADIENT = ['rgba(36, 48, 68, 0.95)', 'rgba(13, 20, 34, 0.95)'] as const;
 
 /** Accent color per level difficulty tier (1 easiest - 5 hardest), used for the level-select grid. */
 export const DIFFICULTY_COLORS: Record<1 | 2 | 3 | 4 | 5, string> = {
@@ -112,7 +112,7 @@ export const BOTTLE_GEOMETRY = {
 
 /** Wood tones for the bottle's mounting pedestal and its weight-readout badge. */
 export const PEDESTAL_TONES = {
-  gradient: ['#a9713f', '#7a4d26'],
+  gradient: ['#a9713f', '#7a4d26'] as const,
   badgeBg: '#0f172a',
   badgeText: '#5eead4',
 };

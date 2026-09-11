@@ -44,7 +44,7 @@ function HeaderPill({
       accessibilityLabel={accessibilityLabel}
       style={style}
     >
-      <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFillObject} />
+      <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFill} />
       <View pointerEvents="none" style={styles.pillSheen} />
       {children}
     </Wrapper>
@@ -330,7 +330,7 @@ export default function Gameplay() {
     </SafeAreaView>
 
     {draggingBall && (
-      <View pointerEvents="none" style={StyleSheet.absoluteFillObject}>
+      <View pointerEvents="none" style={StyleSheet.absoluteFill}>
         <View
           style={{
             position: 'absolute',
@@ -506,7 +506,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(15, 23, 42, 0.9)',
     justifyContent: 'center',
     alignItems: 'center',
