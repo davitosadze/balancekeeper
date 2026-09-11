@@ -115,13 +115,17 @@ export default function GameBoard({
 
 const styles = StyleSheet.create({
   board: {
-    flex: 1,
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: 'auto',
+    height: 290,
+    marginTop: 28,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
-    minHeight: 260,
+    minHeight: 0,
     paddingTop: 24,
-    paddingBottom: 16,
+    paddingBottom: 20,
     paddingHorizontal: 2,
   },
 });

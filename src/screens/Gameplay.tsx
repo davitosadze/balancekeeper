@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, type LayoutChangeEvent, type StyleProp, type ViewStyle } from 'react-native';
+import { View, Text, Pressable, ScrollView, StyleSheet, type LayoutChangeEvent, type StyleProp, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -18,8 +18,6 @@ import { UI_COLORS, FONTS, HINTS_PER_LEVEL, HEADER_PILL_GRADIENT, getBallSize } 
 import { getLevelById } from '@/data/levels';
 import { isTubeLocked, bottleWeight } from '@/utils/physics';
 import type { Ball as BallType } from '@/types/game';
-
-const OBJECTIVE_TEXT = 'Fill every bottle to its exact weight';
 
 /** Dark glass pill used for every header chip: a gradient fill, a thin top sheen, and clipped rounded corners. */
 function HeaderPill({
@@ -42,13 +40,38 @@ function HeaderPill({
       disabled={disabled}
       accessibilityRole={onPress ? 'button' : undefined}
       accessibilityLabel={accessibilityLabel}
-      style={style}
+      style={[styles.headerPill, style]}
     >
       <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFill} />
       <View pointerEvents="none" style={styles.pillSheen} />
       {children}
     </Wrapper>
   );
+}
+
+function GameIcon({ name, color = '#f8fafc', size = 20 }: { name: 'pause' | 'bulb' | 'undo' | 'grid' | 'play' | 'refresh' | 'check' | 'lock'; color?: string; size?: number }) {
+  if (name === 'pause') {
+    return <View style={[styles.pauseIcon, { width: size, height: size }]}><View style={[styles.pauseBar, { backgroundColor: color }]} /><View style={[styles.pauseBar, { backgroundColor: color }]} /></View>;
+  }
+  if (name === 'bulb') {
+    return <View style={[styles.bulbIcon, { width: size, height: size }]}><View style={[styles.bulbHead, { borderColor: color }]} /><View style={[styles.bulbBase, { backgroundColor: color }]} /></View>;
+  }
+  if (name === 'undo') {
+    return <View style={[styles.undoMark, { borderColor: color, width: size, height: size }]}><View style={[styles.undoArrow, { borderLeftColor: color, borderBottomColor: color }]} /></View>;
+  }
+  if (name === 'grid') {
+    return <View style={[styles.gridIcon, { width: size, height: size }]}>{[0, 1, 2, 3].map((cell) => <View key={cell} style={[styles.gridCell, { backgroundColor: color }]} />)}</View>;
+  }
+  if (name === 'play') {
+    return <View style={[styles.playIcon, { borderLeftColor: color, borderTopWidth: size * 0.35, borderBottomWidth: size * 0.35, borderLeftWidth: size * 0.55 }]} />;
+  }
+  if (name === 'refresh') {
+    return <Text style={[styles.symbolIcon, { color, fontSize: size + 3 }]}>↻</Text>;
+  }
+  if (name === 'check') {
+    return <Text style={[styles.symbolIcon, { color, fontSize: size }]}>✓</Text>;
+  }
+  return <View style={[styles.lockIcon, { width: size, height: size }]}><View style={[styles.lockShackle, { borderColor: color }]} /><View style={[styles.lockBody, { backgroundColor: color }]} /></View>;
 }
 
 /**
@@ -86,8 +109,6 @@ export default function Gameplay() {
         .filter((t) => t.ok)
         .map((t) => t.idx)
     : [];
-
-  const earnedStars = gameState.progress.levelProgress[level.id]?.stars ?? 0;
 
   const fire = (event: keyof typeof EVENT_MAP) => {
     const feedback = EVENT_MAP[event];
@@ -202,31 +223,31 @@ export default function Gameplay() {
 
   return (
     <View ref={rootRef} style={styles.root} onLayout={handleRootLayout} collapsable={false}>
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <SceneBackground />
-
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
       <View style={styles.headerRow}>
         <HeaderPill onPress={() => setPaused(true)} accessibilityLabel="Pause" style={styles.iconButton}>
-          <Text style={styles.iconButtonText}>⏸</Text>
+          <GameIcon name="pause" size={18} />
         </HeaderPill>
 
         <HeaderPill style={styles.levelPill}>
-          <View style={styles.levelPillTop}>
-            <Text style={styles.levelPillTitle}>Level {level.id}</Text>
-            <Text style={styles.levelPillStars}>
-              {'★'.repeat(earnedStars)}
-              {'☆'.repeat(3 - earnedStars)}
-            </Text>
-          </View>
-          <Text style={styles.levelPillSubtitle}>{OBJECTIVE_TEXT}</Text>
+          <Text style={styles.levelPillTitle}>Level {level.id}</Text>
         </HeaderPill>
 
         <HeaderPill style={styles.movesPill}>
-          <Text style={styles.movesPillLabel}>Moves</Text>
+          <Text style={styles.movesPillLabel}>MOVES LEFT</Text>
           <Text style={styles.movesPillValue}>
-            {gameState.moves} / {gameState.maxMoves}
+            {Math.max(0, gameState.maxMoves - gameState.moves)}
           </Text>
         </HeaderPill>
+
+        <ScoreDisplay score={gameState.progress.coins} />
       </View>
 
       <View style={styles.secondRow}>
@@ -235,14 +256,13 @@ export default function Gameplay() {
           disabled={hintsLeft <= 0}
           style={[styles.hintButton, hintsLeft <= 0 && styles.disabled]}
         >
-          <Text style={styles.hintIcon}>💡</Text>
+          <View style={styles.hintIcon}><GameIcon name="bulb" color="#fcd34d" size={18} /></View>
           <Text style={styles.hintLabel}>Hint</Text>
           <View style={styles.hintBadge}>
             <Text style={styles.hintBadgeText}>{hintsLeft}</Text>
           </View>
         </HeaderPill>
 
-        <ScoreDisplay score={gameState.progress.coins} />
       </View>
 
       {activeHint && (
@@ -274,25 +294,39 @@ export default function Gameplay() {
       />
 
       <View style={styles.actions}>
-        <Button label="Level Select" variant="secondary" onPress={() => router.push('/level-select')} style={styles.actionButton} />
+        <Pressable
+          onPress={() => router.push('/level-select')}
+          accessibilityRole="button"
+          accessibilityLabel="Open level map"
+          style={styles.mapButton}
+        >
+          <GameIcon name="grid" color="#dcecf0" size={20} />
+        </Pressable>
         <Pressable
           onPress={onUndo}
           disabled={gameState.history.length === 0}
           accessibilityRole="button"
           accessibilityLabel="Undo last move"
+          hitSlop={12}
+          pressRetentionOffset={12}
           style={[styles.undoButton, gameState.history.length === 0 && styles.disabled]}
         >
-          <Text style={styles.undoIcon}>↺</Text>
+          <GameIcon name="undo" color="#f8fafc" size={21} />
         </Pressable>
       </View>
+
+      </ScrollView>
 
       {paused && !gameState.gameOver && (
         <View style={styles.overlay}>
           <View style={styles.overlayCard}>
-            <Text style={styles.overlayTitle}>Paused</Text>
-            <Button label="Resume" variant="primary" onPress={() => setPaused(false)} style={styles.overlayButton} />
+            <View style={styles.overlayIconCircle}><GameIcon name="pause" color="#fcd34d" size={22} /></View>
+            <Text style={styles.overlayEyebrow}>GAME ON HOLD</Text>
+            <Text style={styles.overlayTitle}>Take a breath</Text>
+            <Text style={styles.overlayCopy}>Your bottles are waiting for the perfect balance.</Text>
+            <Button label="RESUME PLAY" variant="primary" onPress={() => setPaused(false)} style={styles.overlayButton} />
             <Button
-              label="Restart Level"
+              label="RESTART LEVEL"
               variant="secondary"
               onPress={() => {
                 handleResetGame();
@@ -301,7 +335,7 @@ export default function Gameplay() {
               style={styles.overlayButton}
             />
             <Button
-              label="Level Select"
+              label="LEVEL MAP"
               variant="secondary"
               onPress={() => router.push('/level-select')}
               style={styles.overlayButton}
@@ -314,12 +348,16 @@ export default function Gameplay() {
         <View style={styles.overlay}>
           <View style={[styles.overlayCard, { borderColor: won ? '#10b981' : '#ef4444' }]}>
             <View style={[styles.overlayBanner, { backgroundColor: won ? '#10b981' : '#ef4444' }]}>
-              <Text style={styles.overlayBannerText}>{won ? 'LEVEL COMPLETE!' : 'LEVEL FAILED!'}</Text>
+              <View style={styles.resultIcon}><GameIcon name={won ? 'check' : 'refresh'} color="#ffffff" size={22} /></View>
+              <Text style={styles.overlayBannerText}>{won ? 'BALANCE FOUND' : 'TRY AGAIN'}</Text>
             </View>
-            <Text style={styles.overlaySubtitle}>{won ? 'Every bottle balanced!' : 'Out of moves!'}</Text>
-            <Text style={styles.overlayScore}>Score: {gameState.score.toLocaleString()}</Text>
+            <Text style={styles.overlaySubtitle}>{won ? 'Every bottle is perfectly balanced.' : 'The move counter ran dry.'}</Text>
+            <View style={styles.scorePanel}>
+              <Text style={styles.scoreLabel}>FINAL SCORE</Text>
+              <Text style={styles.overlayScore}>{gameState.score.toLocaleString()}</Text>
+            </View>
             <Button
-              label="Continue"
+              label={won ? 'VIEW REWARD' : 'TRY LEVEL AGAIN'}
               variant={won ? 'primary' : 'danger'}
               onPress={() => router.push('/level-complete')}
               style={styles.overlayActionButton}
@@ -352,9 +390,21 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: UI_COLORS.background,
-    padding: 16,
-    gap: 10,
+    backgroundColor: 'transparent',
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 12,
+    gap: 9,
+  },
+  scroll: {
+    flex: 1,
+  },
+  content: {
+    gap: 9,
+    paddingBottom: 18,
+  },
+  headerPill: {
+    overflow: 'hidden',
   },
   headerRow: {
     flexDirection: 'row',
@@ -385,8 +435,8 @@ const styles = StyleSheet.create({
   },
   levelPill: {
     flex: 1,
-    borderRadius: 16,
-    paddingVertical: 8,
+    borderRadius: 24,
+    paddingVertical: 10,
     paddingHorizontal: 14,
     gap: 2,
     overflow: 'hidden',
@@ -408,12 +458,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   levelPillSubtitle: {
-    color: '#94a3b8',
+    color: '#a7f3d0',
     fontSize: 11,
+    fontFamily: FONTS.displayMedium,
   },
   movesPill: {
-    borderRadius: 16,
-    paddingVertical: 8,
+    borderRadius: 24,
+    paddingVertical: 7,
     paddingHorizontal: 14,
     alignItems: 'center',
     overflow: 'hidden',
@@ -422,24 +473,26 @@ const styles = StyleSheet.create({
   },
   movesPillLabel: {
     color: '#94a3b8',
-    fontSize: 10,
-    letterSpacing: 0.5,
+    fontSize: 8,
+    letterSpacing: 1,
+    fontFamily: FONTS.displaySemiBold,
   },
   movesPillValue: {
-    color: '#f1f5f9',
-    fontSize: 15,
+    color: '#fcd34d',
+    fontSize: 18,
     fontFamily: FONTS.displayBold,
   },
   secondRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    minHeight: 38,
   },
   hintButton: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    borderRadius: 20,
+    borderRadius: 24,
     paddingVertical: 8,
     paddingHorizontal: 14,
     overflow: 'hidden',
@@ -447,7 +500,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.08)',
   },
   hintIcon: {
-    fontSize: 15,
+    width: 22,
+    height: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   hintLabel: {
     color: '#f1f5f9',
@@ -472,14 +528,18 @@ const styles = StyleSheet.create({
     opacity: 0.45,
   },
   hintPanel: {
-    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+    backgroundColor: 'rgba(10, 32, 43, 0.94)',
     borderRadius: 12,
     padding: 12,
     borderWidth: 1,
-    borderColor: 'rgba(251, 191, 36, 0.5)',
+    borderColor: 'rgba(45, 212, 191, 0.55)',
+    shadowColor: '#0f766e',
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 5,
   },
   hintPanelText: {
-    color: '#fde68a',
+    color: '#ccfbf1',
     fontSize: 12,
     lineHeight: 17,
   },
@@ -487,9 +547,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+    paddingTop: 4,
+    paddingBottom: 6,
+    justifyContent: 'flex-end',
+    alignSelf: 'center',
   },
-  actionButton: {
-    flex: 1,
+  mapButton: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(38, 52, 58, 0.9)',
+    borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.16)',
   },
   undoButton: {
     width: 52,
@@ -497,39 +568,36 @@ const styles = StyleSheet.create({
     borderRadius: 26,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3f2a18',
+    backgroundColor: '#173246',
     borderWidth: 2,
     borderColor: 'rgba(255,255,255,0.15)',
   },
-  undoIcon: {
-    color: '#f1f5f9',
-    fontSize: 22,
-  },
   overlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+    backgroundColor: 'rgba(5, 18, 29, 0.82)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   overlayCard: {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#102536',
     borderRadius: 20,
     borderWidth: 1,
     borderColor: UI_COLORS.border,
-    padding: 24,
+    padding: 26,
     alignItems: 'center',
     gap: 10,
-    minWidth: 260,
+    minWidth: 286,
+    maxWidth: 340,
     overflow: 'hidden',
   },
   overlayTitle: {
     color: UI_COLORS.text,
-    fontSize: 22,
+    fontSize: 25,
     fontFamily: FONTS.displayBold,
     marginBottom: 8,
   },
   overlayButton: {
-    minWidth: 200,
+    minWidth: 220,
   },
   overlayBanner: {
     alignSelf: 'stretch',
@@ -537,10 +605,11 @@ const styles = StyleSheet.create({
     marginTop: -24,
     paddingVertical: 14,
     alignItems: 'center',
+    gap: 5,
   },
   overlayBannerText: {
     color: '#ffffff',
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: FONTS.displayBold,
     letterSpacing: 0.5,
   },
@@ -548,14 +617,145 @@ const styles = StyleSheet.create({
     color: '#94a3b8',
     fontSize: 13,
     marginTop: 8,
+    textAlign: 'center',
+    lineHeight: 19,
   },
   overlayScore: {
     color: UI_COLORS.text,
-    fontSize: 16,
+    fontSize: 25,
     fontFamily: FONTS.displaySemiBold,
   },
   overlayActionButton: {
     marginTop: 8,
     minWidth: 180,
+  },
+  overlayIconCircle: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: 'rgba(245, 158, 11, 0.14)',
+    borderWidth: 1,
+    borderColor: 'rgba(252, 211, 77, 0.45)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  overlayEyebrow: {
+    color: '#fcd34d',
+    fontSize: 10,
+    letterSpacing: 1.8,
+    fontFamily: FONTS.displayBold,
+  },
+  overlayCopy: {
+    color: '#9fb5c4',
+    fontSize: 12,
+    textAlign: 'center',
+    lineHeight: 18,
+    marginTop: -3,
+    marginBottom: 5,
+  },
+  resultIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scorePanel: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderRadius: 12,
+    paddingHorizontal: 32,
+    paddingVertical: 9,
+    marginTop: 5,
+  },
+  scoreLabel: {
+    color: '#86a4b5',
+    fontSize: 9,
+    letterSpacing: 1.4,
+    fontFamily: FONTS.displaySemiBold,
+  },
+  pauseIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+  },
+  pauseBar: {
+    width: 4,
+    height: 15,
+    borderRadius: 2,
+  },
+  bulbIcon: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  bulbHead: {
+    width: 13,
+    height: 13,
+    borderRadius: 7,
+    borderWidth: 2,
+  },
+  bulbBase: {
+    width: 8,
+    height: 3,
+    borderRadius: 1,
+    marginTop: -1,
+  },
+  undoMark: {
+    borderWidth: 2,
+    borderRightColor: 'transparent',
+    borderTopColor: 'transparent',
+    borderRadius: 12,
+    transform: [{ rotate: '25deg' }],
+  },
+  undoArrow: {
+    position: 'absolute',
+    left: -3,
+    top: 1,
+    width: 8,
+    height: 8,
+    borderLeftWidth: 2,
+    borderBottomWidth: 2,
+    transform: [{ rotate: '35deg' }],
+  },
+  gridIcon: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 3,
+    padding: 2,
+  },
+  gridCell: {
+    width: 6,
+    height: 6,
+    borderRadius: 1,
+  },
+  playIcon: {
+    width: 0,
+    height: 0,
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent',
+    borderRightWidth: 0,
+  },
+  symbolIcon: {
+    fontFamily: FONTS.displayBold,
+    lineHeight: 24,
+  },
+  lockIcon: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  lockShackle: {
+    width: 11,
+    height: 9,
+    borderWidth: 2,
+    borderBottomWidth: 0,
+    borderTopLeftRadius: 7,
+    borderTopRightRadius: 7,
+  },
+  lockBody: {
+    width: 17,
+    height: 13,
+    borderRadius: 3,
   },
 });

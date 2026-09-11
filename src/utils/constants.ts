@@ -104,10 +104,10 @@ export const TUBE_COUNT = 4;
 
 /** Flat bottle silhouette geometry: a short neck and a tall body with room for a stack of balls. */
 export const BOTTLE_GEOMETRY = {
-  neckWidth: 30,
-  neckHeight: 24,
-  bodyWidth: 74,
-  bodyHeight: 178,
+  neckWidth: 26,
+  neckHeight: 20,
+  bodyWidth: 64,
+  bodyHeight: 148,
 };
 
 /** Wood tones for the bottle's mounting pedestal and its weight-readout badge. */

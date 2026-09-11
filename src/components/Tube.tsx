@@ -96,17 +96,26 @@ export default function Tube({ tubes, index, isSelected, isComplete, onPress, sh
       {isSelected && <Text style={styles.selectedTag}>Drop here</Text>}
 
       <Animated.View style={[styles.bottleGroup, animatedStyle]}>
-        <View style={[styles.neck, { borderColor }]} />
+        <View style={[styles.neck, { borderColor }]}>
+          <View style={styles.neckGlass} />
+          <View style={styles.rim} />
+        </View>
         <View style={[styles.body, { borderColor }, glowStyle]}>
-          <View style={styles.glassFill} />
+          <LinearGradient colors={['rgba(238, 251, 255, 0.44)', 'rgba(116, 191, 211, 0.12)', 'rgba(10, 61, 82, 0.24)']} style={styles.glassFill} />
+          <View style={styles.shoulderLine} />
+          <View style={styles.liquidReflection} />
           <View style={styles.sheen} />
+          <View style={styles.rightReflection} />
           {tube.balls.map((ball, i) => (
             <Ball key={ball.id} color={ball.color} weight={ball.weight} position={i} spacing={getBallSize(ball.weight) - 4} />
           ))}
           {locked && (
             <View style={styles.lockOverlay}>
               <View style={styles.padlockBadge}>
-                <Text style={styles.padlockEmoji}>🔒</Text>
+                <View style={styles.lockIcon}>
+                  <View style={styles.lockShackle} />
+                  <View style={styles.lockBody} />
+                </View>
                 <Text style={styles.lockedLabel}>Locked</Text>
               </View>
             </View>
@@ -114,9 +123,11 @@ export default function Tube({ tubes, index, isSelected, isComplete, onPress, sh
         </View>
       </Animated.View>
 
+      <View style={styles.baseShadow} />
       <LinearGradient colors={PEDESTAL_TONES.gradient} style={styles.pedestal}>
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>{locked ? `0 / ${tube.target}` : `${weight} / ${tube.target}`}</Text>
+          <Text style={styles.badgeLabel}>WEIGHT</Text>
+          <Text style={styles.badgeText}>{locked ? `0 / ${tube.target}` : `${weight} / ${tube.target}`}<Text style={styles.badgeUnit}> KG</Text></Text>
         </View>
       </LinearGradient>
     </Pressable>
@@ -127,10 +138,11 @@ const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
     justifyContent: 'flex-end',
+    paddingBottom: 3,
   },
   selectedTag: {
     color: UI_COLORS.selected,
-    fontSize: 10,
+    fontSize: 9,
     fontFamily: FONTS.displayBold,
     letterSpacing: 1,
     marginBottom: 4,
@@ -141,38 +153,85 @@ const styles = StyleSheet.create({
   },
   bottleGroup: {
     alignItems: 'center',
+    paddingHorizontal: 7,
   },
   neck: {
     width: NECK_WIDTH,
     height: NECK_HEIGHT,
-    borderWidth: 2,
-    borderBottomWidth: 0,
+    borderWidth: 2.5,
+    borderBottomWidth: 1,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.14)',
+    backgroundColor: 'rgba(174, 225, 236, 0.28)',
+    overflow: 'visible',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  neckGlass: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: 'rgba(255, 255, 255, 0.11)',
+  },
+  rim: {
+    position: 'absolute',
+    top: -5,
+    width: NECK_WIDTH + 7,
+    height: 8,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: 'rgba(235, 252, 255, 0.82)',
+    backgroundColor: 'rgba(123, 196, 214, 0.45)',
   },
   body: {
-    width: BODY_WIDTH,
+    width: BODY_WIDTH + 8,
     height: BODY_HEIGHT,
-    borderWidth: 2,
-    borderRadius: 28,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderWidth: 2.5,
+    borderRadius: 26,
+    borderTopLeftRadius: 38,
+    borderTopRightRadius: 38,
+    borderBottomLeftRadius: 18,
+    borderBottomRightRadius: 18,
     justifyContent: 'flex-end',
     overflow: 'hidden',
   },
   glassFill: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  shoulderLine: {
+    position: 'absolute',
+    top: 15,
+    left: 15,
+    right: 15,
+    height: 1,
+    backgroundColor: 'rgba(236, 253, 255, 0.38)',
+  },
+  liquidReflection: {
+    position: 'absolute',
+    left: 5,
+    right: 5,
+    bottom: 5,
+    height: 38,
+    borderRadius: 16,
+    backgroundColor: 'rgba(18, 95, 119, 0.16)',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.2)',
   },
   sheen: {
     position: 'absolute',
-    top: 8,
-    left: 10,
-    bottom: 12,
-    width: 8,
+    top: 13,
+    left: 9,
+    bottom: 16,
+    width: 5,
     borderRadius: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.28)',
+    backgroundColor: 'rgba(255, 255, 255, 0.42)',
+  },
+  rightReflection: {
+    position: 'absolute',
+    top: 28,
+    right: 8,
+    width: 3,
+    height: 34,
+    borderRadius: 3,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
   },
   glowSelected: {
     shadowColor: UI_COLORS.selected,
@@ -205,8 +264,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 2,
   },
-  padlockEmoji: {
-    fontSize: 20,
+  lockIcon: {
+    width: 22,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  lockShackle: {
+    width: 13,
+    height: 11,
+    borderWidth: 2,
+    borderBottomWidth: 0,
+    borderColor: '#f1f5f9',
+    borderTopLeftRadius: 7,
+    borderTopRightRadius: 7,
+  },
+  lockBody: {
+    width: 20,
+    height: 14,
+    borderRadius: 3,
+    backgroundColor: '#f1f5f9',
   },
   lockedLabel: {
     color: '#f1f5f9',
@@ -214,10 +291,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.displaySemiBold,
   },
   pedestal: {
-    marginTop: 4,
-    width: BODY_WIDTH + 8,
-    height: 32,
-    borderRadius: 10,
+    marginTop: 10,
+    width: BODY_WIDTH + 14,
+    height: 42,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: 'rgba(57, 30, 14, 0.75)',
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -227,14 +306,42 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   badge: {
-    backgroundColor: PEDESTAL_TONES.badgeBg,
-    borderRadius: 6,
-    paddingHorizontal: 10,
+    minWidth: BODY_WIDTH - 8,
+    backgroundColor: 'rgba(8, 28, 39, 0.94)',
+    borderRadius: 7,
+    paddingHorizontal: 8,
     paddingVertical: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(117, 226, 224, 0.28)',
+  },
+  badgeLabel: {
+    color: '#7fa4ae',
+    fontSize: 7,
+    letterSpacing: 1.4,
+    lineHeight: 9,
+    fontFamily: FONTS.displaySemiBold,
   },
   badgeText: {
-    color: PEDESTAL_TONES.badgeText,
+    color: '#d6fffa',
     fontSize: 12,
+    lineHeight: 15,
+    letterSpacing: 0.4,
     fontFamily: FONTS.displayBold,
+  },
+  badgeUnit: {
+    color: '#73d6d1',
+    fontSize: 9,
+    fontFamily: FONTS.displaySemiBold,
+  },
+  baseShadow: {
+    position: 'absolute',
+    bottom: 0,
+    width: BODY_WIDTH + 26,
+    height: 7,
+    borderRadius: 999,
+    backgroundColor: 'rgba(30, 35, 26, 0.38)',
+    transform: [{ translateY: 4 }],
   },
 });

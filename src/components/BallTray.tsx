@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
@@ -31,7 +31,13 @@ export interface BallTrayProps {
 export default function BallTray({ balls, selectedBallId, draggingBallId, onDragStart, onDragMove, onDragEnd }: BallTrayProps) {
   return (
     <LinearGradient colors={TRAY_WOOD_TONES.gradient} style={styles.tray}>
-      <View style={styles.row}>
+      <View style={styles.recess}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.row}
+          style={styles.ballScroll}
+        >
         {balls.map((ball) => (
           <DraggableBallSlot
             key={ball.id}
@@ -43,6 +49,7 @@ export default function BallTray({ balls, selectedBallId, draggingBallId, onDrag
             onDragEnd={onDragEnd}
           />
         ))}
+        </ScrollView>
       </View>
     </LinearGradient>
   );
@@ -94,25 +101,45 @@ function DraggableBallSlot({
 
 const styles = StyleSheet.create({
   tray: {
-    minHeight: 76,
-    borderRadius: 16,
-    borderWidth: 3,
+    alignSelf: 'center',
+    width: '76%',
+    minHeight: 86,
+    borderRadius: 22,
+    borderWidth: 2,
     borderColor: TRAY_WOOD_TONES.border,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 9,
     shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.38,
+    shadowRadius: 8,
+    elevation: 7,
+  },
+  recess: {
+    flex: 1,
+    minHeight: 64,
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: 'rgba(48, 27, 17, 0.72)',
+    backgroundColor: 'rgba(45, 28, 19, 0.55)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#1f130d',
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.55,
     shadowRadius: 5,
     elevation: 4,
   },
   row: {
-    flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 14,
+    paddingHorizontal: 8,
+    minWidth: '100%',
+  },
+  ballScroll: {
+    width: '100%',
   },
   slot: {
     alignItems: 'center',
