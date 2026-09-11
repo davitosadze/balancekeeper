@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet, type LayoutChangeEvent, type StyleProp, type ViewStyle } from 'react-native';
+import { View, Text, Pressable, ScrollView, StyleSheet, useWindowDimensions, type LayoutChangeEvent, type StyleProp, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -81,8 +81,26 @@ function GameIcon({ name, color = '#f8fafc', size = 20 }: { name: 'pause' | 'bul
  * is won or the move budget runs out, and a pause overlay with restart /
  * level-select navigation.
  */
+/**
+ * Fraction of screen height where the bottles' pedestal should sit, tuned to
+ * the ghost bottle-base marks baked into assets/game-background.jpeg (the
+ * photo's table only occupies its bottom ~35%, with the marks starting
+ * around 76% down) so the rendered bottles look like they're actually
+ * resting on the photographed table rather than floating over the lake.
+ */
+const PEDESTAL_TARGET_Y_FRACTION = 0.74;
+
+/**
+ * Distance (px) from the GameBoard's own top edge down to each bottle's
+ * pedestal bottom: GameBoard's marginTop (28) + height (290) - paddingBottom
+ * (20), per its own styles. Kept in sync with GameBoard.tsx by hand since
+ * the board's height is fixed rather than measured.
+ */
+const BOARD_TOP_TO_PEDESTAL_BOTTOM = 298;
+
 export default function Gameplay() {
   const router = useRouter();
+  const { height: windowHeight } = useWindowDimensions();
   const { gameState, handleSelectBall, handlePlaceBall, handleUndo, handleResetGame } = useGameState();
   const { triggerHaptic } = useHaptics();
   const { playSound } = useAudio();
@@ -93,10 +111,16 @@ export default function Gameplay() {
   const [hintIndex, setHintIndex] = useState(0);
   const [activeHint, setActiveHint] = useState<string | null>(null);
   const [bottleRects, setBottleRects] = useState<BottleRect[]>([]);
+  const [topBlockHeight, setTopBlockHeight] = useState(0);
   const [draggingBall, setDraggingBall] = useState<{ ball: BallType; x: number; y: number } | null>(null);
   const rootRef = useRef<View>(null);
   const rootPage = useRef({ x: 0, y: 0 });
   const wasSelectedOnDragStart = useRef(false);
+
+  const boardSpacerHeight = Math.max(
+    0,
+    windowHeight * PEDESTAL_TARGET_Y_FRACTION - topBlockHeight - BOARD_TOP_TO_PEDESTAL_BOTTOM
+  );
 
   const lockedTubeIndices = (level.lockedTubes ?? []).filter((idx) =>
     isTubeLocked(idx, level.lockedTubes, gameState.completedTubes.length, level.unlockAfterCompletions)
@@ -231,45 +255,49 @@ export default function Gameplay() {
         showsVerticalScrollIndicator={false}
         bounces={false}
       >
-      <View style={styles.headerRow}>
-        <HeaderPill onPress={() => setPaused(true)} accessibilityLabel="Pause" style={styles.iconButton}>
-          <GameIcon name="pause" size={18} />
-        </HeaderPill>
+      <View onLayout={(e) => setTopBlockHeight(e.nativeEvent.layout.height)}>
+        <View style={styles.headerRow}>
+          <HeaderPill onPress={() => setPaused(true)} accessibilityLabel="Pause" style={styles.iconButton}>
+            <GameIcon name="pause" size={18} />
+          </HeaderPill>
 
-        <HeaderPill style={styles.levelPill}>
-          <Text style={styles.levelPillTitle}>Level {level.id}</Text>
-        </HeaderPill>
+          <HeaderPill style={styles.levelPill}>
+            <Text style={styles.levelPillTitle}>Level {level.id}</Text>
+          </HeaderPill>
 
-        <HeaderPill style={styles.movesPill}>
-          <Text style={styles.movesPillLabel}>MOVES LEFT</Text>
-          <Text style={styles.movesPillValue}>
-            {Math.max(0, gameState.maxMoves - gameState.moves)}
-          </Text>
-        </HeaderPill>
+          <HeaderPill style={styles.movesPill}>
+            <Text style={styles.movesPillLabel}>MOVES LEFT</Text>
+            <Text style={styles.movesPillValue}>
+              {Math.max(0, gameState.maxMoves - gameState.moves)}
+            </Text>
+          </HeaderPill>
 
-        <ScoreDisplay score={gameState.progress.coins} />
+          <ScoreDisplay score={gameState.progress.coins} />
+        </View>
+
+        <View style={styles.secondRow}>
+          <HeaderPill
+            onPress={onHint}
+            disabled={hintsLeft <= 0}
+            style={[styles.hintButton, hintsLeft <= 0 && styles.disabled]}
+          >
+            <View style={styles.hintIcon}><GameIcon name="bulb" color="#fcd34d" size={18} /></View>
+            <Text style={styles.hintLabel}>Hint</Text>
+            <View style={styles.hintBadge}>
+              <Text style={styles.hintBadgeText}>{hintsLeft}</Text>
+            </View>
+          </HeaderPill>
+
+        </View>
+
+        {activeHint && (
+          <Pressable onPress={() => setActiveHint(null)} style={styles.hintPanel}>
+            <Text style={styles.hintPanelText}>{activeHint}</Text>
+          </Pressable>
+        )}
       </View>
 
-      <View style={styles.secondRow}>
-        <HeaderPill
-          onPress={onHint}
-          disabled={hintsLeft <= 0}
-          style={[styles.hintButton, hintsLeft <= 0 && styles.disabled]}
-        >
-          <View style={styles.hintIcon}><GameIcon name="bulb" color="#fcd34d" size={18} /></View>
-          <Text style={styles.hintLabel}>Hint</Text>
-          <View style={styles.hintBadge}>
-            <Text style={styles.hintBadgeText}>{hintsLeft}</Text>
-          </View>
-        </HeaderPill>
-
-      </View>
-
-      {activeHint && (
-        <Pressable onPress={() => setActiveHint(null)} style={styles.hintPanel}>
-          <Text style={styles.hintPanelText}>{activeHint}</Text>
-        </Pressable>
-      )}
+      <View style={{ height: boardSpacerHeight }} />
 
       <GameBoard
         tubes={gameState.tubes}
