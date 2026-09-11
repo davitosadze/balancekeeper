@@ -81,14 +81,14 @@ function GameIcon({ name, color = '#f8fafc', size = 20 }: { name: 'pause' | 'bul
  * is won or the move budget runs out, and a pause overlay with restart /
  * level-select navigation.
  */
+
 /**
- * Fraction of screen height where the bottles' pedestal should sit, tuned to
- * the ghost bottle-base marks baked into assets/game-background.jpeg (the
- * photo's table only occupies its bottom ~35%, with the marks starting
- * around 76% down) so the rendered bottles look like they're actually
- * resting on the photographed table rather than floating over the lake.
+ * Fraction of screen height where the bottles' pedestal should sit: right at
+ * the front edge of the table in assets/game-background.jpeg, where the lake
+ * meets the wood (~65% down the photo). Bottles rest there; the rest of the
+ * table surface below is left free for the tray and the map/undo buttons.
  */
-const PEDESTAL_TARGET_Y_FRACTION = 0.74;
+const PEDESTAL_TARGET_Y_FRACTION = 0.65;
 
 /**
  * Distance (px) from the GameBoard's own top edge down to each bottle's

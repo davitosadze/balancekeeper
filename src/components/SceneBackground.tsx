@@ -30,7 +30,6 @@ export default function SceneBackground() {
         locations={[0.65, 1]}
         style={StyleSheet.absoluteFill}
       />
-      <View style={styles.tableHighlight} />
     </View>
   );
 }
@@ -40,13 +39,5 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     overflow: 'hidden',
     backgroundColor: '#8c5332',
-  },
-  tableHighlight: {
-    position: 'absolute',
-    top: '49%',
-    left: 0,
-    right: 0,
-    height: 2,
-    backgroundColor: 'rgba(255, 220, 157, 0.35)',
   },
 });
