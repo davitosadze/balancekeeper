@@ -1,0 +1,85 @@
+{
+  "id": 30,
+  "name": "Level 30: Weighted Choices",
+  "difficulty": 3,
+  "moves": 11,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 9
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 6
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 10
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 15
+    }
+  ],
+  "tray": [
+    {
+      "id": "b30-0",
+      "color": "blue",
+      "weight": 6
+    },
+    {
+      "id": "b30-1",
+      "color": "red",
+      "weight": 6
+    },
+    {
+      "id": "b30-2",
+      "color": "yellow",
+      "weight": 3
+    },
+    {
+      "id": "b30-3",
+      "color": "green",
+      "weight": 2
+    },
+    {
+      "id": "b30-4",
+      "color": "purple",
+      "weight": 6
+    },
+    {
+      "id": "b30-5",
+      "color": "cyan",
+      "weight": 4
+    },
+    {
+      "id": "b30-6",
+      "color": "blue",
+      "weight": 5
+    },
+    {
+      "id": "b30-7",
+      "color": "red",
+      "weight": 4
+    },
+    {
+      "id": "b30-8",
+      "color": "yellow",
+      "weight": 4
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Bottle 4 is locked until you fill 1 other bottle to its exact target."
+  ],
+  "minMoves": 9,
+  "unlocks": 31,
+  "lockedTubes": [
+    3
+  ],
+  "unlockAfterCompletions": 1
+}

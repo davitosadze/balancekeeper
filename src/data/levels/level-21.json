@@ -1,0 +1,85 @@
+{
+  "id": 21,
+  "name": "Level 21: Weighted Choices",
+  "difficulty": 3,
+  "moves": 11,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 8
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 11
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 7
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 4
+    }
+  ],
+  "tray": [
+    {
+      "id": "b21-0",
+      "color": "blue",
+      "weight": 4
+    },
+    {
+      "id": "b21-1",
+      "color": "red",
+      "weight": 2
+    },
+    {
+      "id": "b21-2",
+      "color": "yellow",
+      "weight": 2
+    },
+    {
+      "id": "b21-3",
+      "color": "green",
+      "weight": 3
+    },
+    {
+      "id": "b21-4",
+      "color": "purple",
+      "weight": 5
+    },
+    {
+      "id": "b21-5",
+      "color": "cyan",
+      "weight": 2
+    },
+    {
+      "id": "b21-6",
+      "color": "blue",
+      "weight": 2
+    },
+    {
+      "id": "b21-7",
+      "color": "red",
+      "weight": 6
+    },
+    {
+      "id": "b21-8",
+      "color": "yellow",
+      "weight": 4
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Bottle 4 is locked until you fill 1 other bottle to its exact target."
+  ],
+  "minMoves": 9,
+  "unlocks": 22,
+  "lockedTubes": [
+    3
+  ],
+  "unlockAfterCompletions": 1
+}

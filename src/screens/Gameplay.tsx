@@ -1,0 +1,561 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, Pressable, StyleSheet, type LayoutChangeEvent, type StyleProp, type ViewStyle } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import GameBoard, { type BottleRect } from '@/components/GameBoard';
+import BallTray from '@/components/BallTray';
+import Ball from '@/components/Ball';
+import ScoreDisplay from '@/components/ScoreDisplay';
+import SceneBackground from '@/components/SceneBackground';
+import Button from '@/components/ui/Button';
+import { useGameState } from '@/hooks/useGameState';
+import { useHaptics } from '@/hooks/useHaptics';
+import { useAudio } from '@/hooks/useAudio';
+import { useGameStore } from '@/store/gameStore';
+import { EVENT_MAP } from '@/utils/eventMap';
+import { UI_COLORS, FONTS, HINTS_PER_LEVEL, HEADER_PILL_GRADIENT, getBallSize } from '@/utils/constants';
+import { getLevelById } from '@/data/levels';
+import { isTubeLocked, bottleWeight } from '@/utils/physics';
+import type { Ball as BallType } from '@/types/game';
+
+const OBJECTIVE_TEXT = 'Fill every bottle to its exact weight';
+
+/** Dark glass pill used for every header chip: a gradient fill, a thin top sheen, and clipped rounded corners. */
+function HeaderPill({
+  children,
+  style,
+  onPress,
+  disabled,
+  accessibilityLabel,
+}: {
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
+  disabled?: boolean;
+  accessibilityLabel?: string;
+}) {
+  const Wrapper = onPress ? Pressable : View;
+  return (
+    <Wrapper
+      onPress={onPress}
+      disabled={disabled}
+      accessibilityRole={onPress ? 'button' : undefined}
+      accessibilityLabel={accessibilityLabel}
+      style={style}
+    >
+      <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFillObject} />
+      <View pointerEvents="none" style={styles.pillSheen} />
+      {children}
+    </Wrapper>
+  );
+}
+
+/**
+ * Primary gameplay screen: pause/level/moves/coins header, the bottle board,
+ * the shared ball tray, and an undo control. Tap a tray ball to select it,
+ * then tap a bottle to drop it in. Shows a game-over overlay when the level
+ * is won or the move budget runs out, and a pause overlay with restart /
+ * level-select navigation.
+ */
+export default function Gameplay() {
+  const router = useRouter();
+  const { gameState, handleSelectBall, handlePlaceBall, handleUndo, handleResetGame } = useGameState();
+  const { triggerHaptic } = useHaptics();
+  const { playSound } = useAudio();
+  const level = getLevelById(gameState.level);
+  const won = gameState.completedTubes.length >= gameState.tubes.length;
+  const [paused, setPaused] = useState(false);
+  const [hintsLeft, setHintsLeft] = useState(HINTS_PER_LEVEL);
+  const [hintIndex, setHintIndex] = useState(0);
+  const [activeHint, setActiveHint] = useState<string | null>(null);
+  const [bottleRects, setBottleRects] = useState<BottleRect[]>([]);
+  const [draggingBall, setDraggingBall] = useState<{ ball: BallType; x: number; y: number } | null>(null);
+  const rootRef = useRef<View>(null);
+  const rootPage = useRef({ x: 0, y: 0 });
+  const wasSelectedOnDragStart = useRef(false);
+
+  const lockedTubeIndices = (level.lockedTubes ?? []).filter((idx) =>
+    isTubeLocked(idx, level.lockedTubes, gameState.completedTubes.length, level.unlockAfterCompletions)
+  );
+
+  const selectedBall = gameState.tray.find((b) => b.id === gameState.selectedBall) ?? null;
+  const validDropTargets = selectedBall
+    ? gameState.tubes
+        .map((tube, idx) => ({ idx, ok: !lockedTubeIndices.includes(idx) && bottleWeight(tube) + selectedBall.weight <= tube.target }))
+        .filter((t) => t.ok)
+        .map((t) => t.idx)
+    : [];
+
+  const earnedStars = gameState.progress.levelProgress[level.id]?.stars ?? 0;
+
+  const fire = (event: keyof typeof EVENT_MAP) => {
+    const feedback = EVENT_MAP[event];
+    if (feedback.haptic) triggerHaptic(feedback.haptic);
+    if (feedback.sound) void playSound(feedback.sound);
+  };
+
+  useEffect(() => {
+    if (gameState.gameOver) {
+      fire(won ? 'levelComplete' : 'levelFailed');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState.gameOver, won]);
+
+  useEffect(() => {
+    if (gameState.invalidPlacement) {
+      fire('invalidPlacement');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState.invalidPlacement]);
+
+  const seenFloatingPoints = useRef(new Set<string>());
+  useEffect(() => {
+    for (const fp of gameState.floatingPoints) {
+      if (seenFloatingPoints.current.has(fp.id)) continue;
+      seenFloatingPoints.current.add(fp.id);
+      if (fp.label === 'BOTTLE FULL') fire('bottleComplete');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState.floatingPoints]);
+
+  useEffect(() => {
+    setHintsLeft(HINTS_PER_LEVEL);
+    setHintIndex(0);
+    setActiveHint(null);
+  }, [level.id]);
+
+  const selectDirect = (ballId: string) => {
+    if (useGameStore.getState().selectedBall !== ballId) handleSelectBall(ballId);
+  };
+
+  const deselectDirect = (ballId: string) => {
+    if (useGameStore.getState().selectedBall === ballId) handleSelectBall(ballId);
+  };
+
+  const handleRootLayout = (_event: LayoutChangeEvent) => {
+    rootRef.current?.measure((_x, _y, _w, _h, pageX, pageY) => {
+      rootPage.current = { x: pageX, y: pageY };
+    });
+  };
+
+  const onDragStart = (ball: BallType, pageX: number, pageY: number) => {
+    wasSelectedOnDragStart.current = useGameStore.getState().selectedBall === ball.id;
+    fire('lightTap');
+    selectDirect(ball.id);
+    setDraggingBall({ ball, x: pageX, y: pageY });
+  };
+
+  const onDragMove = (pageX: number, pageY: number) => {
+    setDraggingBall((prev) => (prev ? { ...prev, x: pageX, y: pageY } : prev));
+  };
+
+  const onDragEnd = (pageX: number, pageY: number, moved: boolean) => {
+    const ball = draggingBall?.ball;
+    setDraggingBall(null);
+    if (!ball) return;
+
+    if (!moved) {
+      // A plain tap: leave it selected (already done on start) unless it was already
+      // selected before this tap, in which case tapping it again toggles it off.
+      if (wasSelectedOnDragStart.current) deselectDirect(ball.id);
+      return;
+    }
+
+    const targetIndex = bottleRects.findIndex(
+      (r) => pageX >= r.x && pageX <= r.x + r.width && pageY >= r.y && pageY <= r.y + r.height
+    );
+    if (targetIndex !== -1) {
+      const success = handlePlaceBall(targetIndex);
+      if (success) fire('ballPlaced');
+    } else {
+      deselectDirect(ball.id);
+    }
+  };
+
+  const onBottlePress = (index: number) => {
+    if (!gameState.selectedBall) return;
+    const success = handlePlaceBall(index);
+    if (success) fire('ballPlaced');
+  };
+
+  const onUndo = () => {
+    if (gameState.history.length === 0) return;
+    fire('undo');
+    handleUndo();
+  };
+
+  const onHint = () => {
+    if (hintsLeft <= 0 || level.hints.length === 0) return;
+    setActiveHint(level.hints[hintIndex % level.hints.length]);
+    setHintIndex((i) => i + 1);
+    setHintsLeft((n) => n - 1);
+  };
+
+  const handleInvalidPlacementEnd = () => {
+    useGameStore.getState().clearInvalidPlacement();
+  };
+
+  const handleDismissFloatingPoint = (id: string) => {
+    useGameStore.getState().dismissFloatingPoint(id);
+  };
+
+  return (
+    <View ref={rootRef} style={styles.root} onLayout={handleRootLayout} collapsable={false}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <SceneBackground />
+
+      <View style={styles.headerRow}>
+        <HeaderPill onPress={() => setPaused(true)} accessibilityLabel="Pause" style={styles.iconButton}>
+          <Text style={styles.iconButtonText}>⏸</Text>
+        </HeaderPill>
+
+        <HeaderPill style={styles.levelPill}>
+          <View style={styles.levelPillTop}>
+            <Text style={styles.levelPillTitle}>Level {level.id}</Text>
+            <Text style={styles.levelPillStars}>
+              {'★'.repeat(earnedStars)}
+              {'☆'.repeat(3 - earnedStars)}
+            </Text>
+          </View>
+          <Text style={styles.levelPillSubtitle}>{OBJECTIVE_TEXT}</Text>
+        </HeaderPill>
+
+        <HeaderPill style={styles.movesPill}>
+          <Text style={styles.movesPillLabel}>Moves</Text>
+          <Text style={styles.movesPillValue}>
+            {gameState.moves} / {gameState.maxMoves}
+          </Text>
+        </HeaderPill>
+      </View>
+
+      <View style={styles.secondRow}>
+        <HeaderPill
+          onPress={onHint}
+          disabled={hintsLeft <= 0}
+          style={[styles.hintButton, hintsLeft <= 0 && styles.disabled]}
+        >
+          <Text style={styles.hintIcon}>💡</Text>
+          <Text style={styles.hintLabel}>Hint</Text>
+          <View style={styles.hintBadge}>
+            <Text style={styles.hintBadgeText}>{hintsLeft}</Text>
+          </View>
+        </HeaderPill>
+
+        <ScoreDisplay score={gameState.progress.coins} />
+      </View>
+
+      {activeHint && (
+        <Pressable onPress={() => setActiveHint(null)} style={styles.hintPanel}>
+          <Text style={styles.hintPanelText}>{activeHint}</Text>
+        </Pressable>
+      )}
+
+      <GameBoard
+        tubes={gameState.tubes}
+        validDropTargets={validDropTargets}
+        completedTubes={gameState.completedTubes}
+        onTubePress={onBottlePress}
+        invalidPlacement={gameState.invalidPlacement}
+        onInvalidPlacementEnd={handleInvalidPlacementEnd}
+        floatingPoints={gameState.floatingPoints}
+        onDismissFloatingPoint={handleDismissFloatingPoint}
+        lockedTubeIndices={lockedTubeIndices}
+        onBottleRects={setBottleRects}
+      />
+
+      <BallTray
+        balls={gameState.tray}
+        selectedBallId={gameState.selectedBall}
+        draggingBallId={draggingBall?.ball.id ?? null}
+        onDragStart={onDragStart}
+        onDragMove={onDragMove}
+        onDragEnd={onDragEnd}
+      />
+
+      <View style={styles.actions}>
+        <Button label="Level Select" variant="secondary" onPress={() => router.push('/level-select')} style={styles.actionButton} />
+        <Pressable
+          onPress={onUndo}
+          disabled={gameState.history.length === 0}
+          accessibilityRole="button"
+          accessibilityLabel="Undo last move"
+          style={[styles.undoButton, gameState.history.length === 0 && styles.disabled]}
+        >
+          <Text style={styles.undoIcon}>↺</Text>
+        </Pressable>
+      </View>
+
+      {paused && !gameState.gameOver && (
+        <View style={styles.overlay}>
+          <View style={styles.overlayCard}>
+            <Text style={styles.overlayTitle}>Paused</Text>
+            <Button label="Resume" variant="primary" onPress={() => setPaused(false)} style={styles.overlayButton} />
+            <Button
+              label="Restart Level"
+              variant="secondary"
+              onPress={() => {
+                handleResetGame();
+                setPaused(false);
+              }}
+              style={styles.overlayButton}
+            />
+            <Button
+              label="Level Select"
+              variant="secondary"
+              onPress={() => router.push('/level-select')}
+              style={styles.overlayButton}
+            />
+          </View>
+        </View>
+      )}
+
+      {gameState.gameOver && (
+        <View style={styles.overlay}>
+          <View style={[styles.overlayCard, { borderColor: won ? '#10b981' : '#ef4444' }]}>
+            <View style={[styles.overlayBanner, { backgroundColor: won ? '#10b981' : '#ef4444' }]}>
+              <Text style={styles.overlayBannerText}>{won ? 'LEVEL COMPLETE!' : 'LEVEL FAILED!'}</Text>
+            </View>
+            <Text style={styles.overlaySubtitle}>{won ? 'Every bottle balanced!' : 'Out of moves!'}</Text>
+            <Text style={styles.overlayScore}>Score: {gameState.score.toLocaleString()}</Text>
+            <Button
+              label="Continue"
+              variant={won ? 'primary' : 'danger'}
+              onPress={() => router.push('/level-complete')}
+              style={styles.overlayActionButton}
+            />
+          </View>
+        </View>
+      )}
+    </SafeAreaView>
+
+    {draggingBall && (
+      <View pointerEvents="none" style={StyleSheet.absoluteFillObject}>
+        <View
+          style={{
+            position: 'absolute',
+            left: draggingBall.x - rootPage.current.x - getBallSize(draggingBall.ball.weight) / 2,
+            top: draggingBall.y - rootPage.current.y - getBallSize(draggingBall.ball.weight) / 2,
+          }}
+        >
+          <Ball color={draggingBall.ball.color} weight={draggingBall.ball.weight} />
+        </View>
+      </View>
+    )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: UI_COLORS.background,
+    padding: 16,
+    gap: 10,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  pillSheen: {
+    position: 'absolute',
+    top: 0,
+    left: 10,
+    right: 10,
+    height: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
+  },
+  iconButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  iconButtonText: {
+    color: '#f1f5f9',
+    fontSize: 18,
+  },
+  levelPill: {
+    flex: 1,
+    borderRadius: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    gap: 2,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  levelPillTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  levelPillTitle: {
+    color: '#f1f5f9',
+    fontSize: 16,
+    fontFamily: FONTS.displayBold,
+  },
+  levelPillStars: {
+    color: '#fbbf24',
+    fontSize: 13,
+  },
+  levelPillSubtitle: {
+    color: '#94a3b8',
+    fontSize: 11,
+  },
+  movesPill: {
+    borderRadius: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    alignItems: 'center',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  movesPillLabel: {
+    color: '#94a3b8',
+    fontSize: 10,
+    letterSpacing: 0.5,
+  },
+  movesPillValue: {
+    color: '#f1f5f9',
+    fontSize: 15,
+    fontFamily: FONTS.displayBold,
+  },
+  secondRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  hintButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    borderRadius: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  hintIcon: {
+    fontSize: 15,
+  },
+  hintLabel: {
+    color: '#f1f5f9',
+    fontSize: 14,
+    fontFamily: FONTS.displaySemiBold,
+  },
+  hintBadge: {
+    minWidth: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#fbbf24',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+  },
+  hintBadgeText: {
+    color: '#1e293b',
+    fontSize: 11,
+    fontFamily: FONTS.displayBold,
+  },
+  disabled: {
+    opacity: 0.45,
+  },
+  hintPanel: {
+    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(251, 191, 36, 0.5)',
+  },
+  hintPanelText: {
+    color: '#fde68a',
+    fontSize: 12,
+    lineHeight: 17,
+  },
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  actionButton: {
+    flex: 1,
+  },
+  undoButton: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3f2a18',
+    borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.15)',
+  },
+  undoIcon: {
+    color: '#f1f5f9',
+    fontSize: 22,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlayCard: {
+    backgroundColor: '#1e293b',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: UI_COLORS.border,
+    padding: 24,
+    alignItems: 'center',
+    gap: 10,
+    minWidth: 260,
+    overflow: 'hidden',
+  },
+  overlayTitle: {
+    color: UI_COLORS.text,
+    fontSize: 22,
+    fontFamily: FONTS.displayBold,
+    marginBottom: 8,
+  },
+  overlayButton: {
+    minWidth: 200,
+  },
+  overlayBanner: {
+    alignSelf: 'stretch',
+    marginHorizontal: -24,
+    marginTop: -24,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  overlayBannerText: {
+    color: '#ffffff',
+    fontSize: 20,
+    fontFamily: FONTS.displayBold,
+    letterSpacing: 0.5,
+  },
+  overlaySubtitle: {
+    color: '#94a3b8',
+    fontSize: 13,
+    marginTop: 8,
+  },
+  overlayScore: {
+    color: UI_COLORS.text,
+    fontSize: 16,
+    fontFamily: FONTS.displaySemiBold,
+  },
+  overlayActionButton: {
+    marginTop: 8,
+    minWidth: 180,
+  },
+});

@@ -1,0 +1,106 @@
+{
+  "id": 31,
+  "name": "Level 31: Heavy Handed",
+  "difficulty": 4,
+  "moves": 17,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 18
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 19
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 15
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 12
+    }
+  ],
+  "tray": [
+    {
+      "id": "b31-0",
+      "color": "blue",
+      "weight": 6
+    },
+    {
+      "id": "b31-1",
+      "color": "red",
+      "weight": 5
+    },
+    {
+      "id": "b31-2",
+      "color": "yellow",
+      "weight": 4
+    },
+    {
+      "id": "b31-3",
+      "color": "green",
+      "weight": 4
+    },
+    {
+      "id": "b31-4",
+      "color": "purple",
+      "weight": 3
+    },
+    {
+      "id": "b31-5",
+      "color": "cyan",
+      "weight": 6
+    },
+    {
+      "id": "b31-6",
+      "color": "blue",
+      "weight": 7
+    },
+    {
+      "id": "b31-7",
+      "color": "red",
+      "weight": 5
+    },
+    {
+      "id": "b31-8",
+      "color": "yellow",
+      "weight": 3
+    },
+    {
+      "id": "b31-9",
+      "color": "green",
+      "weight": 4
+    },
+    {
+      "id": "b31-10",
+      "color": "purple",
+      "weight": 4
+    },
+    {
+      "id": "b31-11",
+      "color": "cyan",
+      "weight": 5
+    },
+    {
+      "id": "b31-12",
+      "color": "blue",
+      "weight": 5
+    },
+    {
+      "id": "b31-13",
+      "color": "red",
+      "weight": 3
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 14,
+  "unlocks": 32
+}

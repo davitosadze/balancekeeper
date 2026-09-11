@@ -1,0 +1,86 @@
+{
+  "id": 20,
+  "name": "Level 20: Building Balance",
+  "difficulty": 3,
+  "moves": 12,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 10
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 13
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 7
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 11
+    }
+  ],
+  "tray": [
+    {
+      "id": "b20-0",
+      "color": "blue",
+      "weight": 2
+    },
+    {
+      "id": "b20-1",
+      "color": "red",
+      "weight": 6
+    },
+    {
+      "id": "b20-2",
+      "color": "yellow",
+      "weight": 5
+    },
+    {
+      "id": "b20-3",
+      "color": "green",
+      "weight": 2
+    },
+    {
+      "id": "b20-4",
+      "color": "purple",
+      "weight": 2
+    },
+    {
+      "id": "b20-5",
+      "color": "cyan",
+      "weight": 6
+    },
+    {
+      "id": "b20-6",
+      "color": "blue",
+      "weight": 5
+    },
+    {
+      "id": "b20-7",
+      "color": "red",
+      "weight": 3
+    },
+    {
+      "id": "b20-8",
+      "color": "yellow",
+      "weight": 4
+    },
+    {
+      "id": "b20-9",
+      "color": "green",
+      "weight": 6
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 10,
+  "unlocks": 21
+}

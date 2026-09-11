@@ -1,0 +1,96 @@
+{
+  "id": 22,
+  "name": "Level 22: Weighted Choices",
+  "difficulty": 3,
+  "moves": 15,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 16
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 10
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 12
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 11
+    }
+  ],
+  "tray": [
+    {
+      "id": "b22-0",
+      "color": "blue",
+      "weight": 6
+    },
+    {
+      "id": "b22-1",
+      "color": "red",
+      "weight": 3
+    },
+    {
+      "id": "b22-2",
+      "color": "yellow",
+      "weight": 6
+    },
+    {
+      "id": "b22-3",
+      "color": "green",
+      "weight": 2
+    },
+    {
+      "id": "b22-4",
+      "color": "purple",
+      "weight": 3
+    },
+    {
+      "id": "b22-5",
+      "color": "cyan",
+      "weight": 5
+    },
+    {
+      "id": "b22-6",
+      "color": "blue",
+      "weight": 2
+    },
+    {
+      "id": "b22-7",
+      "color": "red",
+      "weight": 3
+    },
+    {
+      "id": "b22-8",
+      "color": "yellow",
+      "weight": 6
+    },
+    {
+      "id": "b22-9",
+      "color": "green",
+      "weight": 3
+    },
+    {
+      "id": "b22-10",
+      "color": "purple",
+      "weight": 4
+    },
+    {
+      "id": "b22-11",
+      "color": "cyan",
+      "weight": 6
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 12,
+  "unlocks": 23
+}

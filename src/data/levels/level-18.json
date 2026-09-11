@@ -1,0 +1,95 @@
+{
+  "id": 18,
+  "name": "Level 18: Building Balance",
+  "difficulty": 3,
+  "moves": 14,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 17
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 12
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 10
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 11
+    }
+  ],
+  "tray": [
+    {
+      "id": "b18-0",
+      "color": "blue",
+      "weight": 6
+    },
+    {
+      "id": "b18-1",
+      "color": "red",
+      "weight": 4
+    },
+    {
+      "id": "b18-2",
+      "color": "yellow",
+      "weight": 5
+    },
+    {
+      "id": "b18-3",
+      "color": "green",
+      "weight": 5
+    },
+    {
+      "id": "b18-4",
+      "color": "purple",
+      "weight": 2
+    },
+    {
+      "id": "b18-5",
+      "color": "cyan",
+      "weight": 4
+    },
+    {
+      "id": "b18-6",
+      "color": "blue",
+      "weight": 6
+    },
+    {
+      "id": "b18-7",
+      "color": "red",
+      "weight": 6
+    },
+    {
+      "id": "b18-8",
+      "color": "yellow",
+      "weight": 4
+    },
+    {
+      "id": "b18-9",
+      "color": "green",
+      "weight": 3
+    },
+    {
+      "id": "b18-10",
+      "color": "purple",
+      "weight": 5
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Bottle 4 is locked until you fill 1 other bottle to its exact target."
+  ],
+  "minMoves": 11,
+  "unlocks": 19,
+  "lockedTubes": [
+    3
+  ],
+  "unlockAfterCompletions": 1
+}

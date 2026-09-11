@@ -1,0 +1,81 @@
+{
+  "id": 17,
+  "name": "Level 17: Building Balance",
+  "difficulty": 3,
+  "moves": 11,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 6
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 9
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 9
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 10
+    }
+  ],
+  "tray": [
+    {
+      "id": "b17-0",
+      "color": "blue",
+      "weight": 3
+    },
+    {
+      "id": "b17-1",
+      "color": "red",
+      "weight": 4
+    },
+    {
+      "id": "b17-2",
+      "color": "yellow",
+      "weight": 5
+    },
+    {
+      "id": "b17-3",
+      "color": "green",
+      "weight": 2
+    },
+    {
+      "id": "b17-4",
+      "color": "purple",
+      "weight": 4
+    },
+    {
+      "id": "b17-5",
+      "color": "cyan",
+      "weight": 4
+    },
+    {
+      "id": "b17-6",
+      "color": "blue",
+      "weight": 6
+    },
+    {
+      "id": "b17-7",
+      "color": "red",
+      "weight": 2
+    },
+    {
+      "id": "b17-8",
+      "color": "yellow",
+      "weight": 4
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 9,
+  "unlocks": 18
+}

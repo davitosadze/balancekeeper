@@ -1,0 +1,105 @@
+{
+  "id": 45,
+  "name": "Level 45: Master Balancer",
+  "difficulty": 5,
+  "moves": 16,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 20
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 18
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 15
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 15
+    }
+  ],
+  "tray": [
+    {
+      "id": "b45-0",
+      "color": "blue",
+      "weight": 5
+    },
+    {
+      "id": "b45-1",
+      "color": "red",
+      "weight": 7
+    },
+    {
+      "id": "b45-2",
+      "color": "yellow",
+      "weight": 6
+    },
+    {
+      "id": "b45-3",
+      "color": "green",
+      "weight": 6
+    },
+    {
+      "id": "b45-4",
+      "color": "purple",
+      "weight": 3
+    },
+    {
+      "id": "b45-5",
+      "color": "cyan",
+      "weight": 3
+    },
+    {
+      "id": "b45-6",
+      "color": "blue",
+      "weight": 6
+    },
+    {
+      "id": "b45-7",
+      "color": "red",
+      "weight": 8
+    },
+    {
+      "id": "b45-8",
+      "color": "yellow",
+      "weight": 3
+    },
+    {
+      "id": "b45-9",
+      "color": "green",
+      "weight": 3
+    },
+    {
+      "id": "b45-10",
+      "color": "purple",
+      "weight": 8
+    },
+    {
+      "id": "b45-11",
+      "color": "cyan",
+      "weight": 3
+    },
+    {
+      "id": "b45-12",
+      "color": "blue",
+      "weight": 7
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Bottle 4 is locked until you fill 1 other bottle to its exact target."
+  ],
+  "minMoves": 13,
+  "unlocks": 46,
+  "lockedTubes": [
+    3
+  ],
+  "unlockAfterCompletions": 1
+}

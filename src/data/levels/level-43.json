@@ -1,0 +1,101 @@
+{
+  "id": 43,
+  "name": "Level 43: Master Balancer",
+  "difficulty": 5,
+  "moves": 16,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 15
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 19
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 21
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 13
+    }
+  ],
+  "tray": [
+    {
+      "id": "b43-0",
+      "color": "blue",
+      "weight": 8
+    },
+    {
+      "id": "b43-1",
+      "color": "red",
+      "weight": 5
+    },
+    {
+      "id": "b43-2",
+      "color": "yellow",
+      "weight": 3
+    },
+    {
+      "id": "b43-3",
+      "color": "green",
+      "weight": 6
+    },
+    {
+      "id": "b43-4",
+      "color": "purple",
+      "weight": 3
+    },
+    {
+      "id": "b43-5",
+      "color": "cyan",
+      "weight": 4
+    },
+    {
+      "id": "b43-6",
+      "color": "blue",
+      "weight": 5
+    },
+    {
+      "id": "b43-7",
+      "color": "red",
+      "weight": 4
+    },
+    {
+      "id": "b43-8",
+      "color": "yellow",
+      "weight": 5
+    },
+    {
+      "id": "b43-9",
+      "color": "green",
+      "weight": 6
+    },
+    {
+      "id": "b43-10",
+      "color": "purple",
+      "weight": 6
+    },
+    {
+      "id": "b43-11",
+      "color": "cyan",
+      "weight": 6
+    },
+    {
+      "id": "b43-12",
+      "color": "blue",
+      "weight": 7
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 13,
+  "unlocks": 44
+}

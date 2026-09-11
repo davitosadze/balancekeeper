@@ -1,0 +1,96 @@
+{
+  "id": 14,
+  "name": "Level 14: Building Balance",
+  "difficulty": 2,
+  "moves": 15,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 13
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 11
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 12
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 12
+    }
+  ],
+  "tray": [
+    {
+      "id": "b14-0",
+      "color": "blue",
+      "weight": 5
+    },
+    {
+      "id": "b14-1",
+      "color": "red",
+      "weight": 4
+    },
+    {
+      "id": "b14-2",
+      "color": "yellow",
+      "weight": 4
+    },
+    {
+      "id": "b14-3",
+      "color": "green",
+      "weight": 3
+    },
+    {
+      "id": "b14-4",
+      "color": "purple",
+      "weight": 3
+    },
+    {
+      "id": "b14-5",
+      "color": "cyan",
+      "weight": 5
+    },
+    {
+      "id": "b14-6",
+      "color": "blue",
+      "weight": 4
+    },
+    {
+      "id": "b14-7",
+      "color": "red",
+      "weight": 4
+    },
+    {
+      "id": "b14-8",
+      "color": "yellow",
+      "weight": 3
+    },
+    {
+      "id": "b14-9",
+      "color": "green",
+      "weight": 3
+    },
+    {
+      "id": "b14-10",
+      "color": "purple",
+      "weight": 5
+    },
+    {
+      "id": "b14-11",
+      "color": "cyan",
+      "weight": 5
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 12,
+  "unlocks": 15
+}

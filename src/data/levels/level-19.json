@@ -1,0 +1,81 @@
+{
+  "id": 19,
+  "name": "Level 19: Building Balance",
+  "difficulty": 3,
+  "moves": 11,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 11
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 8
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 7
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 10
+    }
+  ],
+  "tray": [
+    {
+      "id": "b19-0",
+      "color": "blue",
+      "weight": 3
+    },
+    {
+      "id": "b19-1",
+      "color": "red",
+      "weight": 6
+    },
+    {
+      "id": "b19-2",
+      "color": "yellow",
+      "weight": 4
+    },
+    {
+      "id": "b19-3",
+      "color": "green",
+      "weight": 3
+    },
+    {
+      "id": "b19-4",
+      "color": "purple",
+      "weight": 4
+    },
+    {
+      "id": "b19-5",
+      "color": "cyan",
+      "weight": 2
+    },
+    {
+      "id": "b19-6",
+      "color": "blue",
+      "weight": 4
+    },
+    {
+      "id": "b19-7",
+      "color": "red",
+      "weight": 6
+    },
+    {
+      "id": "b19-8",
+      "color": "yellow",
+      "weight": 4
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 9,
+  "unlocks": 20
+}

@@ -1,0 +1,91 @@
+{
+  "id": 8,
+  "name": "Level 8: Getting Started",
+  "difficulty": 2,
+  "moves": 14,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 11
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 12
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 8
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 7
+    }
+  ],
+  "tray": [
+    {
+      "id": "b8-0",
+      "color": "blue",
+      "weight": 3
+    },
+    {
+      "id": "b8-1",
+      "color": "red",
+      "weight": 5
+    },
+    {
+      "id": "b8-2",
+      "color": "yellow",
+      "weight": 5
+    },
+    {
+      "id": "b8-3",
+      "color": "green",
+      "weight": 5
+    },
+    {
+      "id": "b8-4",
+      "color": "purple",
+      "weight": 5
+    },
+    {
+      "id": "b8-5",
+      "color": "cyan",
+      "weight": 2
+    },
+    {
+      "id": "b8-6",
+      "color": "blue",
+      "weight": 2
+    },
+    {
+      "id": "b8-7",
+      "color": "red",
+      "weight": 2
+    },
+    {
+      "id": "b8-8",
+      "color": "yellow",
+      "weight": 3
+    },
+    {
+      "id": "b8-9",
+      "color": "green",
+      "weight": 4
+    },
+    {
+      "id": "b8-10",
+      "color": "purple",
+      "weight": 2
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 11,
+  "unlocks": 9
+}

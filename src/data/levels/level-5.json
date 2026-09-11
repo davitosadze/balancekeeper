@@ -1,0 +1,76 @@
+{
+  "id": 5,
+  "name": "Level 5: Getting Started",
+  "difficulty": 1,
+  "moves": 10,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 8
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 4
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 7
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 10
+    }
+  ],
+  "tray": [
+    {
+      "id": "b5-0",
+      "color": "blue",
+      "weight": 2
+    },
+    {
+      "id": "b5-1",
+      "color": "red",
+      "weight": 5
+    },
+    {
+      "id": "b5-2",
+      "color": "yellow",
+      "weight": 3
+    },
+    {
+      "id": "b5-3",
+      "color": "green",
+      "weight": 5
+    },
+    {
+      "id": "b5-4",
+      "color": "purple",
+      "weight": 5
+    },
+    {
+      "id": "b5-5",
+      "color": "cyan",
+      "weight": 2
+    },
+    {
+      "id": "b5-6",
+      "color": "blue",
+      "weight": 5
+    },
+    {
+      "id": "b5-7",
+      "color": "red",
+      "weight": 2
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 8,
+  "unlocks": 6
+}

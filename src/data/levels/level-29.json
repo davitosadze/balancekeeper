@@ -1,0 +1,81 @@
+{
+  "id": 29,
+  "name": "Level 29: Weighted Choices",
+  "difficulty": 3,
+  "moves": 11,
+  "tubes": [
+    {
+      "index": 0,
+      "balls": [],
+      "target": 11
+    },
+    {
+      "index": 1,
+      "balls": [],
+      "target": 5
+    },
+    {
+      "index": 2,
+      "balls": [],
+      "target": 9
+    },
+    {
+      "index": 3,
+      "balls": [],
+      "target": 14
+    }
+  ],
+  "tray": [
+    {
+      "id": "b29-0",
+      "color": "blue",
+      "weight": 4
+    },
+    {
+      "id": "b29-1",
+      "color": "red",
+      "weight": 2
+    },
+    {
+      "id": "b29-2",
+      "color": "yellow",
+      "weight": 6
+    },
+    {
+      "id": "b29-3",
+      "color": "green",
+      "weight": 5
+    },
+    {
+      "id": "b29-4",
+      "color": "purple",
+      "weight": 6
+    },
+    {
+      "id": "b29-5",
+      "color": "cyan",
+      "weight": 4
+    },
+    {
+      "id": "b29-6",
+      "color": "blue",
+      "weight": 4
+    },
+    {
+      "id": "b29-7",
+      "color": "red",
+      "weight": 3
+    },
+    {
+      "id": "b29-8",
+      "color": "yellow",
+      "weight": 5
+    }
+  ],
+  "hints": [
+    "Match each ball's kg to a bottle with exactly that much room left before you drop it in.",
+    "Used Undo? It gives your move right back — there is no penalty for reversing a bad drop."
+  ],
+  "minMoves": 9,
+  "unlocks": 30
+}
