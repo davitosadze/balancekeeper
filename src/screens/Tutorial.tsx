@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, {
   useSharedValue,
@@ -11,8 +11,11 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import Ball from '@/components/Ball';
-import Button from '@/components/ui/Button';
-import { UI_COLORS, FONTS } from '@/utils/constants';
+import { WoodlandBackdrop, WoodHeader, WoodPanel, WoodButton, WOODLAND } from '@/components/ui/Woodland';
+import { GAME_FONT } from '@/components/gameplay/assets';
+import { useAudio } from '@/hooks/useAudio';
+import { useHaptics } from '@/hooks/useHaptics';
+import { useMusic } from '@/hooks/useMusic';
 
 interface Step {
   title: string;
@@ -26,15 +29,15 @@ const STEPS: Step[] = [
   },
   {
     title: 'Bottle Targets',
-    body: 'Each bottle shows "current / target" on its base plaque. Drop balls in until the total weighs exactly the target — no more, no less.',
+    body: 'Each bottle shows one weight — match it exactly to solve the bottle. Going over it overloads the bottle.',
   },
   {
     title: 'The Goal',
-    body: 'Empty the shared tray into the bottles so every bottle balances at exactly its target weight before you run out of moves.',
+    body: 'Solve every bottle at its target. Only overload attempts crack the glass; the third breaks a normal bottle. Take your time — normal levels have no timer.',
   },
   {
     title: 'Controls',
-    body: 'Drag a ball from the tray onto a bottle to drop it in, or tap it then tap the bottle. Use Undo to take back your last move.',
+    body: 'Drag a ball from the tray onto a bottle to drop it in, or tap it then tap the bottle. Use Undo below the tray to reverse a placement. Hint highlights one safe move. Free uses and coin prices appear on the buttons.',
   },
 ];
 
@@ -49,53 +52,64 @@ export default function Tutorial() {
   const [step, setStep] = useState(0);
   const isLast = step === STEPS.length - 1;
   const isFirst = step === 0;
+  const { playSound } = useAudio();
+  const { triggerHaptic } = useHaptics();
+  useMusic('menu');
+  const tap = () => { playSound('buttonTap'); triggerHaptic('select'); };
 
-  const finish = () => router.push('/');
+  const exit = () => { playSound('back'); triggerHaptic('select'); router.canGoBack() ? router.back() : router.replace('/'); };
 
   const handleNext = () => {
+    tap();
     if (isLast) {
-      finish();
+      exit();
     } else {
       setStep((s) => s + 1);
     }
   };
 
   const handleBack = () => {
+    tap();
     if (!isFirst) setStep((s) => s - 1);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Pressable onPress={finish} style={styles.skip} accessibilityRole="button">
-        <Text style={styles.skipText}>Skip</Text>
-      </Pressable>
+    <View style={styles.root}>
+      <WoodlandBackdrop room dark />
+      <SafeAreaView style={styles.container} edges={['top', 'bottom', 'left', 'right']}>
+        <View style={styles.scene}>
+          <WoodHeader title="How to Play" onBack={exit} backLabel="Skip tutorial" />
 
-      <View style={styles.dotsRow}>
-        {STEPS.map((_, i) => (
-          <StepDot key={i} active={i === step} />
-        ))}
-      </View>
+          <View style={styles.dotsRow}>
+            {STEPS.map((_, i) => (
+              <StepDot key={i} active={i === step} />
+            ))}
+          </View>
 
-      <View style={styles.content}>
-        <StepContent step={step}>
-          <Text style={styles.title}>{STEPS[step].title}</Text>
+          <View style={styles.content}>
+            <StepContent step={step}>
+              <WoodPanel style={styles.panel}>
+                <Text style={styles.title}>{STEPS[step].title}</Text>
 
-          {step === 0 && (
-            <View style={styles.demoRow}>
-              <BobbingBall color="blue" weight={5} label="5kg" />
-              <BobbingBall color="cyan" weight={2} label="2kg" />
-            </View>
-          )}
+                {step === 0 && (
+                  <View style={styles.demoRow}>
+                    <BobbingBall color="blue" weight={5} label="5kg" />
+                    <BobbingBall color="cyan" weight={2} label="2kg" />
+                  </View>
+                )}
 
-          <Text style={styles.body}>{STEPS[step].body}</Text>
-        </StepContent>
-      </View>
+                <Text style={styles.body}>{STEPS[step].body}</Text>
+              </WoodPanel>
+            </StepContent>
+          </View>
 
-      <View style={styles.nav}>
-        <Button label="Back" variant="secondary" disabled={isFirst} onPress={handleBack} style={styles.navButton} />
-        <Button label={isLast ? 'Done' : 'Next'} variant="primary" onPress={handleNext} style={styles.navButton} />
-      </View>
-    </SafeAreaView>
+          <View style={styles.nav}>
+            <WoodButton label="Back" variant="secondary" disabled={isFirst} onPress={handleBack} style={styles.navButton} />
+            <WoodButton label={isLast ? 'Done' : 'Next'} variant="primary" onPress={handleNext} style={styles.navButton} />
+          </View>
+        </View>
+      </SafeAreaView>
+    </View>
   );
 }
 
@@ -131,7 +145,7 @@ function StepDot({ active }: { active: boolean }) {
 
   const style = useAnimatedStyle(() => ({
     width: width.value,
-    backgroundColor: active ? UI_COLORS.selected : '#334155',
+    backgroundColor: active ? WOODLAND.gold : 'rgba(214,190,160,.3)',
   }));
 
   return <Animated.View style={[styles.dot, style]} />;
@@ -164,22 +178,15 @@ function BobbingBall({ color, weight, label }: { color: 'blue' | 'cyan'; weight:
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: UI_COLORS.background,
-    padding: 24,
-  },
-  skip: {
-    alignSelf: 'flex-end',
-  },
-  skipText: {
-    color: '#94a3b8',
-    fontSize: 14,
-  },
+  root: { flex: 1 },
+  container: { flex: 1 },
+  scene: { flex: 1, width: '100%', maxWidth: 440, alignSelf: 'center', paddingHorizontal: 22, paddingBottom: 18 },
   dotsRow: {
     flexDirection: 'row',
+    justifyContent: 'center',
     gap: 6,
-    marginTop: 12,
+    marginTop: 4,
+    marginBottom: 8,
   },
   dot: {
     height: 8,
@@ -188,22 +195,34 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
+  },
+  panel: {
+    paddingHorizontal: 20,
+    paddingVertical: 24,
     gap: 16,
   },
   title: {
-    color: UI_COLORS.text,
-    fontSize: 26,
-    fontFamily: FONTS.displayBold,
+    color: WOODLAND.cream,
+    fontSize: 24,
+    fontFamily: GAME_FONT,
+    fontWeight: '800',
+    textAlign: 'center',
+    textShadowColor: '#291305',
+    textShadowRadius: 2,
+    textShadowOffset: { width: 0, height: 2 },
   },
   body: {
-    color: '#cbd5e1',
+    color: WOODLAND.muted,
+    fontFamily: GAME_FONT,
     fontSize: 15,
     lineHeight: 22,
+    textAlign: 'center',
   },
   demoRow: {
     flexDirection: 'row',
+    justifyContent: 'center',
     gap: 32,
-    marginVertical: 8,
+    marginVertical: 4,
   },
   demoItem: {
     alignItems: 'center',
@@ -216,7 +235,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   demoLabel: {
-    color: '#94a3b8',
+    color: WOODLAND.muted,
+    fontFamily: GAME_FONT,
     fontSize: 12,
   },
   nav: {

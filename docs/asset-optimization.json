@@ -1,0 +1,162 @@
+[
+  {
+    "source": "assets/background/gameplay-bg.webp",
+    "output": "assets/runtime/gameplay-bg.webp",
+    "width": 832,
+    "height": 1248,
+    "beforeBytes": 72568,
+    "bytes": 70714
+  },
+  {
+    "source": "assets/background/gameplay-bg.webp",
+    "output": "assets/thumbnails/gameplay-bg-thumb.webp",
+    "width": 240,
+    "height": 360,
+    "beforeBytes": 72568,
+    "bytes": 11656
+  },
+  {
+    "source": "assets/background/garden-bg.webp",
+    "output": "assets/runtime/garden-bg.webp",
+    "width": 832,
+    "height": 1478,
+    "beforeBytes": 239026,
+    "bytes": 201002
+  },
+  {
+    "source": "assets/background/garden-bg.webp",
+    "output": "assets/thumbnails/garden-bg-thumb.webp",
+    "width": 240,
+    "height": 426,
+    "beforeBytes": 239026,
+    "bytes": 28614
+  },
+  {
+    "source": "assets/background/laboratory-bg.webp",
+    "output": "assets/runtime/laboratory-bg.webp",
+    "width": 832,
+    "height": 1478,
+    "beforeBytes": 262232,
+    "bytes": 186452
+  },
+  {
+    "source": "assets/background/laboratory-bg.webp",
+    "output": "assets/thumbnails/laboratory-bg-thumb.webp",
+    "width": 240,
+    "height": 426,
+    "beforeBytes": 262232,
+    "bytes": 22590
+  },
+  {
+    "source": "assets/background/night-bg.webp",
+    "output": "assets/runtime/night-bg.webp",
+    "width": 832,
+    "height": 1478,
+    "beforeBytes": 226878,
+    "bytes": 146092
+  },
+  {
+    "source": "assets/background/night-bg.webp",
+    "output": "assets/thumbnails/night-bg-thumb.webp",
+    "width": 240,
+    "height": 426,
+    "beforeBytes": 226878,
+    "bytes": 19054
+  },
+  {
+    "source": "assets/background/workshop-bg.webp",
+    "output": "assets/runtime/workshop-bg.webp",
+    "width": 832,
+    "height": 1478,
+    "beforeBytes": 203656,
+    "bytes": 141426
+  },
+  {
+    "source": "assets/background/workshop-bg.webp",
+    "output": "assets/thumbnails/workshop-bg-thumb.webp",
+    "width": 240,
+    "height": 426,
+    "beforeBytes": 203656,
+    "bytes": 18692
+  },
+  {
+    "source": "assets/bottles/bottle-normal.webp",
+    "output": "assets/runtime/bottle-normal.webp",
+    "width": 640,
+    "height": 960,
+    "beforeBytes": 242032,
+    "bytes": 100926
+  },
+  {
+    "source": "assets/bottles/bottle-normal.webp",
+    "output": "assets/thumbnails/bottle-normal-thumb.webp",
+    "width": 160,
+    "height": 240,
+    "beforeBytes": 242032,
+    "bytes": 11310
+  },
+  {
+    "source": "assets/bottles/bottle-crack-1.webp",
+    "output": "assets/runtime/bottle-crack-1.webp",
+    "width": 640,
+    "height": 960,
+    "beforeBytes": 210976,
+    "bytes": 94198
+  },
+  {
+    "source": "assets/bottles/bottle-crack-2.webp",
+    "output": "assets/runtime/bottle-crack-2.webp",
+    "width": 640,
+    "height": 960,
+    "beforeBytes": 166596,
+    "bytes": 96056
+  },
+  {
+    "source": "assets/bottles/bottle-broken.webp",
+    "output": "assets/runtime/bottle-broken.webp",
+    "width": 640,
+    "height": 960,
+    "beforeBytes": 195880,
+    "bytes": 110316
+  },
+  {
+    "source": "assets/bottles/bottle-crystal.webp",
+    "output": "assets/runtime/bottle-crystal.webp",
+    "width": 640,
+    "height": 960,
+    "beforeBytes": 128960,
+    "bytes": 83158
+  },
+  {
+    "source": "assets/bottles/bottle-crystal.webp",
+    "output": "assets/thumbnails/bottle-crystal-thumb.webp",
+    "width": 160,
+    "height": 240,
+    "beforeBytes": 128960,
+    "bytes": 9422
+  },
+  {
+    "source": "assets/main/main-bg.png",
+    "output": "assets/runtime/main-bg.webp",
+    "width": 832,
+    "height": 1248,
+    "beforeBytes": 2075840,
+    "bytes": 142246
+  },
+  {
+    "source": "assets/main/logo.png",
+    "output": "assets/runtime/logo.webp",
+    "width": 768,
+    "height": 384,
+    "beforeBytes": 1661207,
+    "bytes": 56074
+  },
+  {
+    "source": "assets/main/tagline-board.png",
+    "output": "assets/runtime/tagline-board.webp",
+    "width": 640,
+    "height": 360,
+    "beforeBytes": 1476801,
+    "bytes": 42164
+  }
+]

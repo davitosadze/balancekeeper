@@ -1,6 +1,7 @@
+import { useReducedMotionPreference } from '@/hooks/useReducedMotionPreference';
 import React, { useEffect } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withDelay, withSpring } from 'react-native-reanimated';
+import Animated, { cancelAnimation, useSharedValue, useAnimatedStyle, withDelay, withSpring } from 'react-native-reanimated';
 
 export interface PopInProps {
   children: React.ReactNode;
@@ -17,12 +18,14 @@ const POP_SPRING = { damping: 9, stiffness: 200, mass: 0.6 };
  * one-at-a-time reveal moments.
  */
 export default function PopIn({ children, delay = 0, style }: PopInProps) {
-  const scale = useSharedValue(0);
+  const reduced = useReducedMotionPreference();
+  const scale = useSharedValue(reduced ? 1 : 0);
 
   useEffect(() => {
+    if(reduced) { scale.value = 1; return; }
     scale.value = withDelay(delay, withSpring(1, POP_SPRING));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => cancelAnimation(scale);
+  }, [reduced]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

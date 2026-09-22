@@ -1,0 +1,191 @@
+[
+  {
+    "path": "assets/adaptive-icon.png",
+    "width": 1024,
+    "height": 1024,
+    "bytes": 4556,
+    "alpha": false
+  },
+  {
+    "path": "assets/background/gameplay-bg.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 72568,
+    "alpha": false
+  },
+  {
+    "path": "assets/background/garden-bg.webp",
+    "width": 941,
+    "height": 1672,
+    "bytes": 239026,
+    "alpha": false
+  },
+  {
+    "path": "assets/background/laboratory-bg.webp",
+    "width": 941,
+    "height": 1672,
+    "bytes": 262232,
+    "alpha": false
+  },
+  {
+    "path": "assets/background/night-bg.webp",
+    "width": 941,
+    "height": 1672,
+    "bytes": 226878,
+    "alpha": false
+  },
+  {
+    "path": "assets/background/workshop-bg.webp",
+    "width": 941,
+    "height": 1672,
+    "bytes": 203656,
+    "alpha": false
+  },
+  {
+    "path": "assets/bottles/bottle-broken.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 195880,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-brokenold.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 155568,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-crack-1.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 210976,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-crack-1old.webp",
+    "width": 1024,
+    "height": 1535,
+    "bytes": 87004,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-crack-2.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 166596,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-crack-2old.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 113874,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-crystal.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 128960,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-normal.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 242032,
+    "alpha": true
+  },
+  {
+    "path": "assets/bottles/bottle-normalold.webp",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 168624,
+    "alpha": true
+  },
+  {
+    "path": "assets/favicon.png",
+    "width": 48,
+    "height": 48,
+    "bytes": 116,
+    "alpha": false
+  },
+  {
+    "path": "assets/game-background.jpeg",
+    "width": 768,
+    "height": 1375,
+    "bytes": 708323,
+    "alpha": false
+  },
+  {
+    "path": "assets/game-background1.jpeg",
+    "width": 768,
+    "height": 1376,
+    "bytes": 627862,
+    "alpha": false
+  },
+  {
+    "path": "assets/icon.png",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 1737692,
+    "alpha": false
+  },
+  {
+    "path": "assets/main/logo.png",
+    "width": 1774,
+    "height": 887,
+    "bytes": 1661207,
+    "alpha": true
+  },
+  {
+    "path": "assets/main/main-bg.png",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 2075840,
+    "alpha": false
+  },
+  {
+    "path": "assets/main/tagline-board.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 1476801,
+    "alpha": true
+  }
+  {
+    "path": "assets/weights/weight-blue.webp",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 161270,
+    "alpha": true
+  },
+  {
+    "path": "assets/weights/weight-green.webp",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 157524,
+    "alpha": true
+  },
+  {
+    "path": "assets/weights/weight-heavy.webp",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 306464,
+    "alpha": true
+  },
+  {
+    "path": "assets/weights/weight-red.webp",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 167100,
+    "alpha": true
+  },
+  {
+    "path": "assets/weights/weight-wood.webp",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 202232,
+    "alpha": true
+  }
+]

@@ -1,6 +1,7 @@
+import { useReducedMotionPreference } from '@/hooks/useReducedMotionPreference';
 import React, { useEffect } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withDelay, withTiming, Easing } from 'react-native-reanimated';
+import Animated, { cancelAnimation, useSharedValue, useAnimatedStyle, withDelay, withTiming, Easing } from 'react-native-reanimated';
 
 export interface FadeSlideInProps {
   children: React.ReactNode;
@@ -19,12 +20,14 @@ export interface FadeSlideInProps {
  * a list.
  */
 export default function FadeSlideIn({ children, delay = 0, distance = 16, duration = 380, style }: FadeSlideInProps) {
-  const progress = useSharedValue(0);
+  const reduced = useReducedMotionPreference();
+  const progress = useSharedValue(reduced ? 1 : 0);
 
   useEffect(() => {
+    if(reduced) { progress.value = 1; return; }
     progress.value = withDelay(delay, withTiming(1, { duration, easing: Easing.out(Easing.cubic) }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => cancelAnimation(progress);
+  }, [reduced]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: progress.value,

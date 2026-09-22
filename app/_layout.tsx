@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, AppState, AccessibilityInfo, Platform } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -10,6 +10,11 @@ import {
   SpaceGrotesk_600SemiBold,
   SpaceGrotesk_700Bold,
 } from '@expo-google-fonts/space-grotesk';
+import { useGameStore } from '@/store/gameStore';
+import { useSettingsStore, loadSettings } from '@/store/settingsStore';
+import { soundManager } from '@/services/soundManager';
+import { musicManager } from '@/services/musicManager';
+import { startAds } from '@/services/ads/adsLifecycle';
 import { UI_COLORS } from '@/utils/constants';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -20,25 +25,40 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
  * shares the dark theme background across every screen.
  */
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
+  useEffect(() => {
+    void loadSettings();
+    let active = true;
+    void AccessibilityInfo.isReduceMotionEnabled().then(value => {if(active)useSettingsStore.setState({systemReducedMotion:value});}).catch(()=>{});
+    const motion = AccessibilityInfo.addEventListener('reduceMotionChanged', value => useSettingsStore.setState({systemReducedMotion:value}));
+    const flush = () => {void useGameStore.getState().flushPersistence().catch(()=>{});};
+    const app = AppState.addEventListener('change',status => {if(status !== 'active')flush();});
+    const visibility = () => {if(document.visibilityState === 'hidden')flush();};
+    if(Platform.OS === 'web'){window.addEventListener('pagehide',flush);document.addEventListener('visibilitychange',visibility);}
+    return () => {active=false;motion.remove();app.remove();flush();soundManager.dispose();musicManager.dispose();if(Platform.OS==='web'){window.removeEventListener('pagehide',flush);document.removeEventListener('visibilitychange',visibility);}};
+  }, []);
+  const [fontsLoaded, fontError] = useFonts({
     SpaceGrotesk_500Medium,
     SpaceGrotesk_600SemiBold,
     SpaceGrotesk_700Bold,
   });
 
+  const fontReady = fontsLoaded || !!fontError;
   useEffect(() => {
-    if (fontsLoaded) {
+    if (fontReady) return startAds();
+  }, [fontReady]);
+  useEffect(() => {
+    if (fontReady) {
       void SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontReady]);
 
   const onLayoutRootView = useCallback(() => {
-    if (fontsLoaded) {
+    if (fontReady) {
       void SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontReady]);
 
-  if (!fontsLoaded) {
+  if (!fontReady) {
     return <View style={{ flex: 1, backgroundColor: UI_COLORS.background }} />;
   }
 

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   dark: {
-    backgroundColor: 'rgba(15, 23, 42, 0.82)',
+    backgroundColor: 'rgba(47,32,22,.9)',
     borderWidth: 1,
     borderColor: UI_COLORS.border,
   },

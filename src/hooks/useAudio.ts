@@ -1,22 +1,17 @@
-import { useCallback, useState } from 'react';
-
-export type SoundEffect = 'pour' | 'complete' | 'levelup' | 'error';
-
-/**
- * Loads and plays short sound effects for game events, with a mute toggle.
- * No sound assets are bundled yet, so this is currently a no-op stub — it
- * keeps the same interface callers already use so wiring in real playback
- * later (e.g. via expo-audio, once assets exist) doesn't touch call sites.
- * Previously used expo-av, but Expo Go no longer ships that native module.
- */
+import { useCallback, useRef } from 'react';
+import { useFocusEffect } from 'expo-router';
+import { soundManager } from '@/services/soundManager';
+import { loadSettings, useSettingsStore } from '@/store/settingsStore';
+import type { SoundEffect } from '@/domain/feedback';
+export type { SoundEffect } from '@/domain/feedback';
+/** Screen focus owns playback; cached handles survive route transitions. */
 export function useAudio() {
-  const [muted, setMuted] = useState(false);
-
-  const playSound = useCallback(async (_type: SoundEffect) => {
-    // No bundled sound assets yet — nothing to play.
-  }, []);
-
-  const toggleMute = useCallback(() => setMuted((prev) => !prev), []);
-
-  return { playSound, muted, toggleMute };
+  const token=useRef({});
+  const enabled=useSettingsStore(state=>state.ready&&state.settings.soundEnabled&&state.settings.volume>0);
+  useFocusEffect(useCallback(()=>{
+    void loadSettings();const owner=token.current;soundManager.activate(owner);
+    return()=>soundManager.deactivate(owner);
+  },[enabled]));
+  const playSound=useCallback((type:SoundEffect)=>soundManager.play(token.current,type),[]);
+  return {playSound};
 }

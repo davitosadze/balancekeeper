@@ -1,52 +1,23 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useGameStore } from '@/store/gameStore';
-import { saveProgress } from './useStorage';
-import { getLevelById, getTotalLevels } from '@/data/levels';
-
-/**
- * Gameplay-facing hook built on top of the Zustand game store. Wraps store
- * actions for ball selection/placement/undo and an auto-save of player
- * progress to AsyncStorage after every move.
- */
+import { getTotalLevels, getLevelById } from '@/data/levels';
+import { initialGame } from '@/domain/gameplay';
+import type { GameState } from '@/types/game';
+const runtimeKeys = Object.keys(initialGame(getLevelById(1))) as (keyof GameState)[];
+/** Runtime subscriptions exclude profile receipts, ownership and reward-save bookkeeping. */
 export function useGameState() {
-  const gameState = useGameStore();
-  const previousMoves = useRef(gameState.moves);
-
-  useEffect(() => {
-    if (gameState.moves !== previousMoves.current) {
-      previousMoves.current = gameState.moves;
-      void saveProgress(gameState.progress);
-    }
-  }, [gameState.moves, gameState.progress]);
-
-  const handleSelectBall = useCallback((ballId: string) => {
-    useGameStore.getState().selectBall(ballId);
-  }, []);
-
-  const handlePlaceBall = useCallback((tubeIndex: number): boolean => {
-    return useGameStore.getState().placeBall(tubeIndex);
-  }, []);
-
-  const handleUndo = useCallback(() => {
-    useGameStore.getState().undoLastPlacement();
-  }, []);
-
-  const handleResetGame = useCallback(() => {
-    useGameStore.getState().resetGame();
-  }, []);
-
-  const handleNextLevel = useCallback(() => {
-    const nextId = Math.min(gameState.level + 1, getTotalLevels());
-    getLevelById(nextId);
-    useGameStore.getState().loadLevel(nextId);
-  }, [gameState.level]);
-
-  return {
-    gameState,
-    handleSelectBall,
-    handlePlaceBall,
-    handleUndo,
-    handleResetGame,
-    handleNextLevel,
-  };
+  const runtime = useGameStore(useShallow(state => ({
+    ...Object.fromEntries(runtimeKeys.map(key => [key,state[key]])) as unknown as GameState,
+    hydrated:state.hydrated,utilityBusy:state.utilityBusy,cosmeticBusy:state.cosmeticBusy,
+    storageError:state.storageError,retrySave:state.retrySave,
+  })));
+  const coins=useGameStore(state=>state.progress.coins);
+  const gameState=useMemo(()=>({...runtime,progress:{coins}}),[runtime,coins]);
+  const handleSelectBall = useCallback((ballId: string) => useGameStore.getState().selectBall(ballId), []);
+  const handlePlaceBall = useCallback((tubeIndex: number, impactVelocity?: number) => useGameStore.getState().placeBall(tubeIndex, impactVelocity), []);
+  const handleUndo = useCallback(() => useGameStore.getState().undoLastPlacement(), []);
+  const handleResetGame = useCallback(() => useGameStore.getState().resetGame(), []);
+  const handleNextLevel = useCallback(() => useGameStore.getState().loadLevel(Math.min(gameState.level + 1, getTotalLevels())), [gameState.level]);
+  return { gameState, handleSelectBall, handlePlaceBall, handleUndo, handleResetGame, handleNextLevel };
 }

@@ -1,35 +1,54 @@
-import React from 'react';
-import { Image, View, StyleSheet, useWindowDimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { recordRender } from '@/utils/performance';
+import { getGameplayBackground, getBackgroundThumbnail, MENU_BACKGROUND } from '@/assets/cosmetics';
+import { useEquippedCosmetic } from '@/hooks/useCosmetics';
+import React, { memo } from "react";
+import { Image, View, StyleSheet, useWindowDimensions } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
-/**
- * Realistic gameplay scene background: the real lake/mountain/table photo,
- * cover-fit so its proportions stay correct (no stretching), with a light
- * warm gradient near the bottom edge for depth and a crisp highlight line
- * where the photographed table's front edge sits.
- *
- * The image is sized with explicit window pixel dimensions rather than
- * percentage/absoluteFill sizing — with several route screens mounted at
- * once (expo-router keeps the stack alive for back-gesture support), the
- * active screen's flex chain can resolve ambiguously on web, leaving an
- * `<img>` unstyled at its native resolution instead of stretched to fill.
- * Explicit pixel dimensions sidestep that regardless of ancestor sizing.
- */
-export default function SceneBackground() {
+/** Cover-fit scene art. Gameplay uses the supplied indoor tabletop;
+ * other screens retain their existing background. Explicit window sizing
+ * also supports screens kept mounted by Expo Router on web. */
+function SceneBackground({
+  gameplay = false,
+  tabletopY,
+  backgroundId,
+  thumbnail = false,
+}: {
+  gameplay?: boolean;
+  thumbnail?: boolean;
+  tabletopY?: number;
+  backgroundId?: string;
+}) {
+  recordRender('background');
   const { width, height } = useWindowDimensions();
+  const equipped = useEquippedCosmetic('background');
+  const background = getGameplayBackground(backgroundId ?? equipped);
+  // The supplied room/table edge is about 62% down the art. On short phones,
+  // cover-crop from the bottom so measured bottle feet stay on the tabletop.
+  const tableEdge = background.tableEdge;
+  const overscan = gameplay && tabletopY != null
+    ? Math.max(0, (height * tableEdge - tabletopY + 4) / (1 - tableEdge))
+    : 0;
 
   return (
     <View pointerEvents="none" style={styles.container}>
       <Image
-        source={require('../../assets/game-background.jpeg')}
+        source={
+          gameplay
+            ? thumbnail ? getBackgroundThumbnail(backgroundId ?? equipped) : background.source
+            : MENU_BACKGROUND
+        }
+        fadeDuration={0}
+        testID="scene-background-image"
         resizeMode="cover"
-        style={{ position: 'absolute', top: 0, left: 0, width, height }}
+        style={{ position: "absolute", top: -overscan, left: 0, width, height: height + overscan }}
       />
-      <LinearGradient
-        colors={['rgba(91, 49, 29, 0)', 'rgba(91, 49, 29, 0.22)']}
+      {gameplay && <LinearGradient colors={[background.overlay, "rgba(78,49,24,.035)", "rgba(78,49,24,0)"]} locations={[0, .38, .65]} style={StyleSheet.absoluteFill} />}
+      {!gameplay && <LinearGradient
+        colors={["rgba(91, 49, 29, 0)", "rgba(91, 49, 29, 0.22)"]}
         locations={[0.65, 1]}
         style={StyleSheet.absoluteFill}
-      />
+      />}
     </View>
   );
 }
@@ -37,7 +56,9 @@ export default function SceneBackground() {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFill,
-    overflow: 'hidden',
-    backgroundColor: '#8c5332',
+    overflow: "hidden",
+    backgroundColor: "#8c5332",
   },
 });
+
+export default memo(SceneBackground);

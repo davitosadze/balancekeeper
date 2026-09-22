@@ -1,138 +1,265 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet, useWindowDimensions, type LayoutChangeEvent, type StyleProp, type ViewStyle } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import GameBoard, { type BottleRect } from '@/components/GameBoard';
-import BallTray from '@/components/BallTray';
-import Ball from '@/components/Ball';
-import ScoreDisplay from '@/components/ScoreDisplay';
-import SceneBackground from '@/components/SceneBackground';
-import Button from '@/components/ui/Button';
-import { useGameState } from '@/hooks/useGameState';
-import { useHaptics } from '@/hooks/useHaptics';
-import { useAudio } from '@/hooks/useAudio';
-import { useGameStore } from '@/store/gameStore';
-import { EVENT_MAP } from '@/utils/eventMap';
-import { UI_COLORS, FONTS, HINTS_PER_LEVEL, HEADER_PILL_GRADIENT, getBallSize } from '@/utils/constants';
-import { getLevelById } from '@/data/levels';
-import { isTubeLocked, bottleWeight } from '@/utils/physics';
-import type { Ball as BallType } from '@/types/game';
+import { recordRender } from '@/utils/performance';
+import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  useWindowDimensions,
+  Platform,
+  type LayoutChangeEvent,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSequence,
+  withTiming,
+  Easing,
+  cancelAnimation,
+} from "react-native-reanimated";
+import { useRouter, useFocusEffect } from "expo-router";
+import { type BottleRect } from "@/components/GameBoard";
+import GameplayScene from "@/components/gameplay/GameplayScene";
+import { trayBallSize, GAME_FONT } from "@/components/gameplay/assets";
+import { WoodPanel, WoodButton, WOODLAND } from "@/components/ui/Woodland";
+import ReturningWeight, {
+  RETURN_DURATION,
+} from "@/components/gameplay/ReturningWeight";
+import { useStableCallback } from '@/hooks/useStableCallback';
+import GameplayAssetWarmup from '@/components/gameplay/GameplayAssetWarmup';
+import FailureScreen from '@/components/gameplay/FailureScreen';
+import { THEME } from '@/components/ui/theme';
+import Ball from "@/components/Ball";
+import Confetti from "@/components/Confetti";
+import SceneBackground from "@/components/SceneBackground";
+import Button from "@/components/ui/Button";
+import { useGameState } from "@/hooks/useGameState";
+import { useRewardedAd } from '@/hooks/useRewardedAd';
+import { useGameplayFeedback } from "@/hooks/useGameplayFeedback";
+import { useReducedMotionPreference } from "@/hooks/useReducedMotionPreference";
+import { EFFECT_TIMING } from "@/domain/bottleFeedback";
+import GameplayBanner from "@/components/gameplay/GameplayBanner";
+import { useHaptics } from "@/hooks/useHaptics";
+import { useAudio } from "@/hooks/useAudio";
+import { useMusic } from "@/hooks/useMusic";
+import { useGameStore } from "@/store/gameStore";
+import { EVENT_MAP } from "@/utils/eventMap";
+import { UI_COLORS, FONTS, DURABILITY_CONFIG } from "@/utils/constants";
+import { getLevelById } from "@/data/levels";
+import { getLockedBottleIndices, getRejectionReason } from "@/utils/physics";
+import { canRevive, gameplayActions } from "@/domain/gameplay";
+import { getTutorialMessage, getMoveGoalText } from "@/domain/levels/tutorials";
+import TutorialCoach from "@/components/gameplay/TutorialCoach";
+import { comboLabel } from "@/utils/scoring";
+import type {
+  Ball as BallType,
+} from "@/types/game";
 
-/** Dark glass pill used for every header chip: a gradient fill, a thin top sheen, and clipped rounded corners. */
-function HeaderPill({
-  children,
-  style,
-  onPress,
-  disabled,
-  accessibilityLabel,
+
+// The dragged ball follows the finger every frame; caching it as a rasterized texture avoids
+// re-rendering its image and shadow 60 times a second while it moves.
+const RASTERIZE_PROPS = Platform.OS === "android"
+  ? { renderToHardwareTextureAndroid: true }
+  : { shouldRasterizeIOS: true };
+
+function GameIcon({
+  name,
+  color = "#f8fafc",
+  size = 20,
 }: {
-  children: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
-  onPress?: () => void;
-  disabled?: boolean;
-  accessibilityLabel?: string;
+  name:
+    | "pause"
+    | "bulb"
+    | "undo"
+    | "grid"
+    | "play"
+    | "refresh"
+    | "check"
+    | "lock";
+  color?: string;
+  size?: number;
 }) {
-  const Wrapper = onPress ? Pressable : View;
+  if (name === "pause") {
+    return (
+      <View style={[styles.pauseIcon, { width: size, height: size }]}>
+        <View style={[styles.pauseBar, { backgroundColor: color }]} />
+        <View style={[styles.pauseBar, { backgroundColor: color }]} />
+      </View>
+    );
+  }
+  if (name === "bulb") {
+    return (
+      <View style={[styles.bulbIcon, { width: size, height: size }]}>
+        <View style={[styles.bulbHead, { borderColor: color }]} />
+        <View style={[styles.bulbBase, { backgroundColor: color }]} />
+      </View>
+    );
+  }
+  if (name === "undo") {
+    return (
+      <View
+        style={[
+          styles.undoMark,
+          { borderColor: color, width: size, height: size },
+        ]}>
+        <View
+          style={[
+            styles.undoArrow,
+            { borderLeftColor: color, borderBottomColor: color },
+          ]}
+        />
+      </View>
+    );
+  }
+  if (name === "grid") {
+    return (
+      <View style={[styles.gridIcon, { width: size, height: size }]}>
+        {[0, 1, 2, 3].map((cell) => (
+          <View
+            key={cell}
+            style={[styles.gridCell, { backgroundColor: color }]}
+          />
+        ))}
+      </View>
+    );
+  }
+  if (name === "play") {
+    return (
+      <View
+        style={[
+          styles.playIcon,
+          {
+            borderLeftColor: color,
+            borderTopWidth: size * 0.35,
+            borderBottomWidth: size * 0.35,
+            borderLeftWidth: size * 0.55,
+          },
+        ]}
+      />
+    );
+  }
+  if (name === "refresh") {
+    return (
+      <Text style={[styles.symbolIcon, { color, fontSize: size + 3 }]}>↻</Text>
+    );
+  }
+  if (name === "check") {
+    return (
+      <Text style={[styles.symbolIcon, { color, fontSize: size }]}>✓</Text>
+    );
+  }
   return (
-    <Wrapper
-      onPress={onPress}
-      disabled={disabled}
-      accessibilityRole={onPress ? 'button' : undefined}
-      accessibilityLabel={accessibilityLabel}
-      style={[styles.headerPill, style]}
-    >
-      <LinearGradient colors={HEADER_PILL_GRADIENT} style={StyleSheet.absoluteFill} />
-      <View pointerEvents="none" style={styles.pillSheen} />
-      {children}
-    </Wrapper>
+    <View style={[styles.lockIcon, { width: size, height: size }]}>
+      <View style={[styles.lockShackle, { borderColor: color }]} />
+      <View style={[styles.lockBody, { backgroundColor: color }]} />
+    </View>
   );
 }
 
-function GameIcon({ name, color = '#f8fafc', size = 20 }: { name: 'pause' | 'bulb' | 'undo' | 'grid' | 'play' | 'refresh' | 'check' | 'lock'; color?: string; size?: number }) {
-  if (name === 'pause') {
-    return <View style={[styles.pauseIcon, { width: size, height: size }]}><View style={[styles.pauseBar, { backgroundColor: color }]} /><View style={[styles.pauseBar, { backgroundColor: color }]} /></View>;
-  }
-  if (name === 'bulb') {
-    return <View style={[styles.bulbIcon, { width: size, height: size }]}><View style={[styles.bulbHead, { borderColor: color }]} /><View style={[styles.bulbBase, { backgroundColor: color }]} /></View>;
-  }
-  if (name === 'undo') {
-    return <View style={[styles.undoMark, { borderColor: color, width: size, height: size }]}><View style={[styles.undoArrow, { borderLeftColor: color, borderBottomColor: color }]} /></View>;
-  }
-  if (name === 'grid') {
-    return <View style={[styles.gridIcon, { width: size, height: size }]}>{[0, 1, 2, 3].map((cell) => <View key={cell} style={[styles.gridCell, { backgroundColor: color }]} />)}</View>;
-  }
-  if (name === 'play') {
-    return <View style={[styles.playIcon, { borderLeftColor: color, borderTopWidth: size * 0.35, borderBottomWidth: size * 0.35, borderLeftWidth: size * 0.55 }]} />;
-  }
-  if (name === 'refresh') {
-    return <Text style={[styles.symbolIcon, { color, fontSize: size + 3 }]}>↻</Text>;
-  }
-  if (name === 'check') {
-    return <Text style={[styles.symbolIcon, { color, fontSize: size }]}>✓</Text>;
-  }
-  return <View style={[styles.lockIcon, { width: size, height: size }]}><View style={[styles.lockShackle, { borderColor: color }]} /><View style={[styles.lockBody, { backgroundColor: color }]} /></View>;
-}
-
-/**
- * Primary gameplay screen: pause/level/moves/coins header, the bottle board,
- * the shared ball tray, and an undo control. Tap a tray ball to select it,
- * then tap a bottle to drop it in. Shows a game-over overlay when the level
- * is won or the move budget runs out, and a pause overlay with restart /
- * level-select navigation.
- */
-
-/**
- * Fraction of screen height where the bottles' pedestal should sit: right at
- * the front edge of the table in assets/game-background.jpeg, where the lake
- * meets the wood (~65% down the photo). Bottles rest there; the rest of the
- * table surface below is left free for the tray and the map/undo buttons.
- */
-const PEDESTAL_TARGET_Y_FRACTION = 0.65;
-
-/**
- * Distance (px) from the GameBoard's own top edge down to each bottle's
- * pedestal bottom: GameBoard's marginTop (28) + height (290) - paddingBottom
- * (20), per its own styles. Kept in sync with GameBoard.tsx by hand since
- * the board's height is fixed rather than measured.
- */
-const BOARD_TOP_TO_PEDESTAL_BOTTOM = 298;
-
 export default function Gameplay() {
+  recordRender('gameplay');
   const router = useRouter();
-  const { height: windowHeight } = useWindowDimensions();
-  const { gameState, handleSelectBall, handlePlaceBall, handleUndo, handleResetGame } = useGameState();
+  const { width: windowWidth } = useWindowDimensions();
+  const sceneWidth = Math.min(windowWidth, 600);
+  const {
+    gameState,
+    handleSelectBall,
+    handlePlaceBall,
+    handleUndo,
+    handleResetGame,
+  } = useGameState();
   const { triggerHaptic } = useHaptics();
+  const rewardedAd = useRewardedAd();
+  const [adNotice, setAdNotice] = useState<string | null>(null);
+  useEffect(() => { setAdNotice(null); }, [gameState.attemptId]);
   const { playSound } = useAudio();
+  const reducedMotion = useReducedMotionPreference();
   const level = getLevelById(gameState.level);
-  const won = gameState.completedTubes.length >= gameState.tubes.length;
+  useMusic(level.category === "hard" || level.category === "challenge" ? "gameplayHard" : "gameplay");
+  const won = gameState.status === "won";
+  const gameOver = gameState.status !== "playing";
+  const completedTubes = useMemo(() => gameState.tubes
+    .filter((tube) => tube.isSolved)
+    .map((tube) => tube.index), [gameState.tubes]);
+  const brokenTubes = useMemo(() => gameState.tubes
+    .filter((tube) => tube.isBroken)
+    .map((tube) => tube.index), [gameState.tubes]);
+  const actions = gameplayActions(gameState, level, gameState.progress.coins);
+  const reviveAvailable = canRevive(gameState);
+  const reviveCost = level.rules.reviveCost;
   const [paused, setPaused] = useState(false);
-  const [hintsLeft, setHintsLeft] = useState(HINTS_PER_LEVEL);
-  const [hintIndex, setHintIndex] = useState(0);
+  const [assetsReady, setAssetsReady] = useState(false);
+  const [assetError, setAssetError] = useState(false);
+  const [assetRetry, setAssetRetry] = useState(0);
+  const handleAssetError = useCallback(() => setAssetError(true), []);
   const [activeHint, setActiveHint] = useState<string | null>(null);
   const [bottleRects, setBottleRects] = useState<BottleRect[]>([]);
-  const [topBlockHeight, setTopBlockHeight] = useState(0);
-  const [draggingBall, setDraggingBall] = useState<{ ball: BallType; x: number; y: number } | null>(null);
+  const [coinInfo, setCoinInfo] = useState(false);
+  const dragOrigin = useRef({ x: 0, y: 0 });
+  const dragRenderSize = useRef(0);
+  const [hoveredBottle, setHoveredBottle] = useState(-1);
+  const draggedBallRef = useRef<BallType | null>(null);
+  const dragX = useSharedValue(0);
+  const dragY = useSharedValue(0);
+  const dragScale = useSharedValue(1);
+  const [draggingBall, setDraggingBall] = useState<{
+    ball: BallType;
+    x: number;
+    y: number;
+  } | null>(null);
+  const [rejectedBall, setRejectedBall] = useState<{
+    ball: BallType;
+    from: { x: number; y: number };
+    to: { x: number; y: number };
+    at: number;
+  } | null>(null);
   const rootRef = useRef<View>(null);
   const rootPage = useRef({ x: 0, y: 0 });
   const wasSelectedOnDragStart = useRef(false);
+  const screenFlashOpacity = useSharedValue(0);
+  const originX = useSharedValue(0), originY = useSharedValue(0);
+  const hover = useSharedValue(-1), rects = useSharedValue<BottleRect[]>([]);
+  useEffect(() => { rects.value = bottleRects; }, [bottleRects,rects]);
+  const motion = useMemo(() => ({x:dragX,y:dragY,originX,originY,hover,rects}),[dragX,dragY,originX,originY,hover,rects]);
 
-  const boardSpacerHeight = Math.max(
-    0,
-    windowHeight * PEDESTAL_TARGET_Y_FRACTION - topBlockHeight - BOARD_TOP_TO_PEDESTAL_BOTTOM
-  );
+  useEffect(() => () => { [dragX, dragY, dragScale, screenFlashOpacity].forEach(cancelAnimation); }, [dragX, dragY, dragScale, screenFlashOpacity]);
 
-  const lockedTubeIndices = (level.lockedTubes ?? []).filter((idx) =>
-    isTubeLocked(idx, level.lockedTubes, gameState.completedTubes.length, level.unlockAfterCompletions)
-  );
+  const lockedTubeIndices = useMemo(() => getLockedBottleIndices(gameState.tubes), [gameState.tubes]);
 
-  const selectedBall = gameState.tray.find((b) => b.id === gameState.selectedBall) ?? null;
-  const validDropTargets = selectedBall
+  const selectedBall =
+    gameState.tray.find((b) => b.id === gameState.selectedBall) ?? null;
+  const validDropTargets = useMemo(() => selectedBall
     ? gameState.tubes
-        .map((tube, idx) => ({ idx, ok: !lockedTubeIndices.includes(idx) && bottleWeight(tube) + selectedBall.weight <= tube.target }))
+        .map((tube, idx) => ({
+          idx,
+          ok:
+            !lockedTubeIndices.includes(idx) &&
+            !brokenTubes.includes(idx) &&
+            getRejectionReason(tube, selectedBall.weight, {
+              bottles: gameState.tubes,
+            }) === null,
+        }))
         .filter((t) => t.ok)
         .map((t) => t.idx)
-    : [];
+    : [], [selectedBall, gameState.tubes, lockedTubeIndices, brokenTubes]);
+
+  const tubeDurability = useMemo(() => gameState.tubes.map((tube) =>
+    tube.durability == null
+      ? null
+      : {
+          current: Math.max(0, tube.durability - tube.damage),
+          max: tube.durability,
+        },
+  ), [gameState.tubes]);
+
+  // A bottle-break failure holds the result overlay back until the shatter
+  // animation (lastBreak, cleared by GameBoard after breakAnimationDurationMs)
+  // has actually played, so the player sees CRACK...CRACK...SHATTER before
+  // "LEVEL FAILED" covers the screen. Every other outcome reveals instantly.
+  const resultOverlayReady =
+    won || gameState.lossReason !== "broken" || !gameState.lastBreak;
+  const showResultOverlay = gameState.status === "lost" && resultOverlayReady;
 
   const fire = (event: keyof typeof EVENT_MAP) => {
     const feedback = EVENT_MAP[event];
@@ -140,63 +267,106 @@ export default function Gameplay() {
     if (feedback.sound) void playSound(feedback.sound);
   };
 
-  useEffect(() => {
-    if (gameState.gameOver) {
-      fire(won ? 'levelComplete' : 'levelFailed');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameState.gameOver, won]);
+  useGameplayFeedback(gameState.effects, playSound, triggerHaptic, !paused);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!won) return;
+      const timer = setTimeout(() => router.replace("/level-complete"), reducedMotion ? 150 : EFFECT_TIMING.win);
+      return () => clearTimeout(timer);
+    }, [won, router, reducedMotion]),
+  );
 
   useEffect(() => {
-    if (gameState.invalidPlacement) {
-      fire('invalidPlacement');
-    }
+    if (!gameState.lastBreak || reducedMotion) return;
+    screenFlashOpacity.value = 0;
+    screenFlashOpacity.value = withSequence(
+      withTiming(0.16, { duration: 55, easing: Easing.out(Easing.quad) }),
+      withTiming(0, {
+        duration: DURABILITY_CONFIG.screenFlashDurationMs,
+        easing: Easing.out(Easing.quad),
+      }),
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameState.invalidPlacement]);
+  }, [gameState.lastBreak]);
 
-  const seenFloatingPoints = useRef(new Set<string>());
-  useEffect(() => {
-    for (const fp of gameState.floatingPoints) {
-      if (seenFloatingPoints.current.has(fp.id)) continue;
-      seenFloatingPoints.current.add(fp.id);
-      if (fp.label === 'BOTTLE FULL') fire('bottleComplete');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameState.floatingPoints]);
+  const screenFlashStyle = useAnimatedStyle(() => ({
+    opacity: screenFlashOpacity.value,
+  }));
 
   useEffect(() => {
-    setHintsLeft(HINTS_PER_LEVEL);
-    setHintIndex(0);
+    if (!rejectedBall) return;
+    const timer = setTimeout(() => setRejectedBall(null), RETURN_DURATION);
+    return () => clearTimeout(timer);
+  }, [rejectedBall]);
+
+  useEffect(() => {
     setActiveHint(null);
   }, [level.id]);
 
   const selectDirect = (ballId: string) => {
-    if (useGameStore.getState().selectedBall !== ballId) handleSelectBall(ballId);
+    if (useGameStore.getState().selectedBall !== ballId)
+      handleSelectBall(ballId);
   };
 
   const deselectDirect = (ballId: string) => {
-    if (useGameStore.getState().selectedBall === ballId) handleSelectBall(ballId);
+    if (useGameStore.getState().selectedBall === ballId)
+      handleSelectBall(ballId);
   };
 
   const handleRootLayout = (_event: LayoutChangeEvent) => {
     rootRef.current?.measure((_x, _y, _w, _h, pageX, pageY) => {
       rootPage.current = { x: pageX, y: pageY };
+      originX.value = pageX; originY.value = pageY;
     });
   };
 
-  const onDragStart = (ball: BallType, pageX: number, pageY: number) => {
-    wasSelectedOnDragStart.current = useGameStore.getState().selectedBall === ball.id;
-    fire('lightTap');
+  const onDragStart = useStableCallback((
+    ball: BallType,
+    pageX: number,
+    pageY: number,
+    origin?: { x: number; y: number; size?: number },
+  ) => {
+    if (!assetsReady || paused || gameOver || !gameState.hydrated || gameState.cosmeticBusy || gameState.storageError)
+      return;
+    dragOrigin.current = origin ?? { x: pageX, y: pageY };
+    dragRenderSize.current =
+      origin?.size ?? trayBallSize(ball.weight, sceneWidth);
+    setHoveredBottle(-1);
+    hover.value = -1;
+    setRejectedBall(null);
+    wasSelectedOnDragStart.current =
+      useGameStore.getState().selectedBall === ball.id;
     selectDirect(ball.id);
+    draggedBallRef.current = ball;
+    dragX.value = pageX - rootPage.current.x;
+    dragY.value = pageY - rootPage.current.y;
+    dragScale.value = 1;
+    dragScale.value = reducedMotion ? 1 : withTiming(1.1, { duration: 120 });
     setDraggingBall({ ball, x: pageX, y: pageY });
-  };
+  });
 
-  const onDragMove = (pageX: number, pageY: number) => {
-    setDraggingBall((prev) => (prev ? { ...prev, x: pageX, y: pageY } : prev));
-  };
+  const onDragMove = useStableCallback((pageX: number, pageY: number) => {
+    // Visual hover feedback only; onDragEnd remains the placement authority.
+    if (draggedBallRef.current)
+      setHoveredBottle(
+        bottleRects.findIndex(
+          (rect) =>
+            pageX >= rect.x &&
+            pageX <= rect.x + rect.width &&
+            pageY >= rect.y &&
+            pageY <= rect.y + rect.height,
+        ),
+      );
+    dragX.value = pageX - rootPage.current.x;
+    dragY.value = pageY - rootPage.current.y;
+  });
 
-  const onDragEnd = (pageX: number, pageY: number, moved: boolean) => {
-    const ball = draggingBall?.ball;
+  const onDragEnd = useStableCallback((pageX: number, pageY: number, moved: boolean) => {
+    setHoveredBottle(-1);
+    hover.value = -1;
+    const ball = draggedBallRef.current;
+    draggedBallRef.current = null;
     setDraggingBall(null);
     if (!ball) return;
 
@@ -208,206 +378,357 @@ export default function Gameplay() {
     }
 
     const targetIndex = bottleRects.findIndex(
-      (r) => pageX >= r.x && pageX <= r.x + r.width && pageY >= r.y && pageY <= r.y + r.height
+      (r) =>
+        pageX >= r.x &&
+        pageX <= r.x + r.width &&
+        pageY >= r.y &&
+        pageY <= r.y + r.height,
     );
     if (targetIndex !== -1) {
       const success = handlePlaceBall(targetIndex);
-      if (success) fire('ballPlaced');
+      if (success) {
+        return;
+      }
     } else {
-      deselectDirect(ball.id);
+      useGameStore.getState().invalidDrop();
     }
-  };
+    // Keep the tray slot empty until the object arrives back at its origin.
+    // Rejections always leave the offending ball in the tray.
+    if (useGameStore.getState().tray.some((item) => item.id === ball.id)) {
+      setRejectedBall({
+        ball,
+        from: { x: pageX - rootPage.current.x, y: pageY - rootPage.current.y },
+        to: {
+          x: dragOrigin.current.x - rootPage.current.x,
+          y: dragOrigin.current.y - rootPage.current.y,
+        },
+        at: Date.now(),
+      });
+    }
+  });
 
-  const onBottlePress = (index: number) => {
+  const onDragCancel = useStableCallback(() => {
+    if (draggedBallRef.current)
+      onDragEnd(dragOrigin.current.x, dragOrigin.current.y, true);
+  });
+
+  const onBottlePress = useStableCallback((index: number) => {
     if (!gameState.selectedBall) return;
-    const success = handlePlaceBall(index);
-    if (success) fire('ballPlaced');
-  };
+    handlePlaceBall(index);
+  });
 
-  const onUndo = () => {
-    if (gameState.history.length === 0) return;
-    fire('undo');
-    handleUndo();
-  };
+  const onUndo = useStableCallback(() => {
+    const result = handleUndo();
+    if (result.accepted) {
+      setActiveHint(null);
+    } else if (result.message) setActiveHint(result.message);
+  });
+  const onHint = useStableCallback(() => {
+    const result = useGameStore.getState().requestHint();
+    if (result.accepted) {
+      setActiveHint(null);
+    } else if (result.message) setActiveHint(result.message);
+  });
+  const onShuffle = useStableCallback(() => {
+    const result = useGameStore.getState().shuffleTray();
+    if (result.accepted) {
+      setActiveHint(null);
+    } else if (result.message) setActiveHint(result.message);
+  });
+  const onRevive = useStableCallback(() => {
+    const result = useGameStore.getState().revive();
+    if (result.accepted) {
+      setRejectedBall(null);
+      setActiveHint(null);
+    } else if (result.message) setActiveHint(result.message);
+  });
+  const onRewardedRevive = useStableCallback(() => {
+    const attemptId = useGameStore.getState().attemptId;
+    const isValid = () => {
+      const state = useGameStore.getState();
+      return state.attemptId === attemptId && canRevive(state) && state.hydrated
+        && !state.utilityBusy && !state.cosmeticBusy && !state.storageError;
+    };
+    setAdNotice(null);
+    void rewardedAd.show({
+      isValid,
+      onEarned: () => {
+        const result = useGameStore.getState().reviveWithEarnedReward(attemptId);
+        if (result.accepted) { setRejectedBall(null); setActiveHint(null); }
+        else setAdNotice(result.message ?? 'Continue is no longer available.');
+      },
+      onDismissed: earned => { if (!earned) setAdNotice('Ad closed before the reward was earned.'); },
+      onError: () => setAdNotice('Ad unavailable. You can still continue with coins or restart.'),
+    });
+  });
 
-  const onHint = () => {
-    if (hintsLeft <= 0 || level.hints.length === 0) return;
-    setActiveHint(level.hints[hintIndex % level.hints.length]);
-    setHintIndex((i) => i + 1);
-    setHintsLeft((n) => n - 1);
-  };
-
-  const handleInvalidPlacementEnd = () => {
+  const handleInvalidPlacementEnd = useStableCallback(() => {
     useGameStore.getState().clearInvalidPlacement();
-  };
+  });
 
-  const handleDismissFloatingPoint = (id: string) => {
+  const handleDismissFloatingPoint = useStableCallback((id: string) => {
     useGameStore.getState().dismissFloatingPoint(id);
-  };
+  });
 
+  const draggedSize = draggingBall ? dragRenderSize.current : 0;
+  const draggedHeight =
+    draggedSize * (draggingBall && draggingBall.ball.weight >= 15 ? 1.3 : 1);
+  const draggedStyle = useAnimatedStyle(() => ({
+    left: 0, top: 0,
+    transform: [{ translateX: dragX.value - draggedSize / 2 }, { translateY: dragY.value - draggedHeight / 2 - 8 }, { scale: dragScale.value }],
+  }));
+
+  const onPause = useStableCallback(() => {fire('lightTap');setPaused(true);});
+  const onCoins = useStableCallback(() => {fire('lightTap');setCoinInfo(true);});
+  const onImpactEnd = useCallback(() => useGameStore.getState().clearImpact(), []);
+  const onBreakEnd = useCallback(() => useGameStore.getState().clearBreak(), []);
+
+  const actionsDisabled =
+    !assetsReady || paused ||
+    gameOver ||
+    !!draggingBall ||
+    !gameState.hydrated ||
+    gameState.cosmeticBusy ||
+    gameState.utilityBusy ||
+    !!gameState.storageError;
+  // Stable prop objects let GameBoard/BallTray's React.memo actually skip re-rendering (and
+  // re-creating every drag gesture handler) on state changes unrelated to the board or tray,
+  // which otherwise re-ran every bottle and ball slot on each dispatch, most visibly at drop time.
+  const sceneActions = useMemo(() => ({
+    ...actions, onUndo, onHint, onShuffle, disabled: actionsDisabled,
+  }), [actions, onUndo, onHint, onShuffle, actionsDisabled]);
+  const sceneBoard = useMemo(() => ({
+    effects: gameState.effects,
+    won,
+    hoveredIndex: hoveredBottle,
+    hintIndex: gameState.hintMove?.tubeIndex,
+    dragActive: !!draggingBall,
+    tubes: gameState.tubes,
+    validDropTargets,
+    completedTubes,
+    onTubePress: onBottlePress,
+    invalidPlacement: gameState.invalidPlacement,
+    onInvalidPlacementEnd: handleInvalidPlacementEnd,
+    floatingPoints: gameState.floatingPoints,
+    onDismissFloatingPoint: handleDismissFloatingPoint,
+    lockedTubeIndices,
+    onBottleRects: setBottleRects,
+    tubeDurability,
+    brokenTubeIndices: brokenTubes,
+    lastImpact: gameState.lastImpact,
+    onImpactEnd,
+    lastBreak: gameState.lastBreak,
+    onBreakEnd,
+  }), [
+    gameState.effects, won, hoveredBottle, gameState.hintMove?.tubeIndex, draggingBall,
+    gameState.tubes, validDropTargets, completedTubes, onBottlePress,
+    gameState.invalidPlacement, handleInvalidPlacementEnd, gameState.floatingPoints,
+    handleDismissFloatingPoint, lockedTubeIndices, tubeDurability, brokenTubes,
+    gameState.lastImpact, onImpactEnd, gameState.lastBreak, onBreakEnd,
+  ]);
+  const sceneTray = useMemo(() => ({
+    balls: gameState.tray,
+    selectedBallId: gameState.selectedBall,
+    hintedBallId: gameState.hintMove?.ballId,
+    hintVersion: gameState.hintUsed,
+    draggingBallId: draggingBall?.ball.id ?? rejectedBall?.ball.id ?? null,
+    onDragStart,
+    onDragMove,
+    motion, onHover: setHoveredBottle,
+    onDragEnd,
+    onDragCancel,
+  }), [
+    gameState.tray, gameState.selectedBall, gameState.hintMove?.ballId, gameState.hintUsed,
+    draggingBall, rejectedBall, onDragStart, onDragMove, motion, onDragEnd, onDragCancel,
+  ]);
   return (
-    <View ref={rootRef} style={styles.root} onLayout={handleRootLayout} collapsable={false}>
-      <SceneBackground />
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-      >
-      <View onLayout={(e) => setTopBlockHeight(e.nativeEvent.layout.height)}>
-        <View style={styles.headerRow}>
-          <HeaderPill onPress={() => setPaused(true)} accessibilityLabel="Pause" style={styles.iconButton}>
-            <GameIcon name="pause" size={18} />
-          </HeaderPill>
-
-          <HeaderPill style={styles.levelPill}>
-            <Text style={styles.levelPillTitle}>Level {level.id}</Text>
-          </HeaderPill>
-
-          <HeaderPill style={styles.movesPill}>
-            <Text style={styles.movesPillLabel}>MOVES LEFT</Text>
-            <Text style={styles.movesPillValue}>
-              {Math.max(0, gameState.maxMoves - gameState.moves)}
-            </Text>
-          </HeaderPill>
-
-          <ScoreDisplay score={gameState.progress.coins} />
-        </View>
-
-        <View style={styles.secondRow}>
-          <HeaderPill
-            onPress={onHint}
-            disabled={hintsLeft <= 0}
-            style={[styles.hintButton, hintsLeft <= 0 && styles.disabled]}
-          >
-            <View style={styles.hintIcon}><GameIcon name="bulb" color="#fcd34d" size={18} /></View>
-            <Text style={styles.hintLabel}>Hint</Text>
-            <View style={styles.hintBadge}>
-              <Text style={styles.hintBadgeText}>{hintsLeft}</Text>
-            </View>
-          </HeaderPill>
-
-        </View>
-
+    <View
+      ref={rootRef}
+      style={styles.root}
+      onLayout={handleRootLayout}
+      collapsable={false}>
+      <GameplayAssetWarmup key={assetRetry} onReady={setAssetsReady} onError={handleAssetError} />
+      <SceneBackground
+        gameplay
+        tabletopY={
+          bottleRects[0]
+            ? bottleRects[0].y + bottleRects[0].height - 52 - rootPage.current.y
+            : undefined
+        }
+      />
+      <SafeAreaView
+        style={styles.container}
+        edges={["top", "bottom", "left", "right"]}>
+        <GameplayScene
+          key={`scene:${gameState.attemptId}`}
+          level={level.id}
+          coins={gameState.progress.coins}
+          progress={completedTubes.length / gameState.tubes.length}
+          stars={gameState.earnedStars}
+          actions={sceneActions}
+          feedback={<GameplayBanner key={gameState.attemptId} events={gameState.effects} milestone={!!level.milestone} fallback={getMoveGoalText(level, gameState) ?? ""} />}
+          onPause={onPause}
+          onCoins={onCoins}
+          board={sceneBoard}
+          tray={sceneTray}
+        />
+        <TutorialCoach
+          key={gameState.attemptId}
+          message={getTutorialMessage(level, gameState)}
+        />
+        {!assetsReady && <View style={styles.overlay}><View style={styles.overlayCard}>
+          <Text style={styles.overlayCopy}>{assetError ? 'The scene could not load.' : 'Setting the table…'}</Text>
+          {assetError && <Button label="RETRY" onPress={() => {setAssetError(false);setAssetRetry(value => value + 1);}} />}
+        </View></View>}
         {activeHint && (
-          <Pressable onPress={() => setActiveHint(null)} style={styles.hintPanel}>
+          <Pressable
+            onPress={() => setActiveHint(null)}
+            style={[
+              styles.hintPanel,
+              { position: "absolute", top: "24%", left: 24, right: 24 },
+            ]}>
             <Text style={styles.hintPanelText}>{activeHint}</Text>
           </Pressable>
         )}
-      </View>
-
-      <View style={{ height: boardSpacerHeight }} />
-
-      <GameBoard
-        tubes={gameState.tubes}
-        validDropTargets={validDropTargets}
-        completedTubes={gameState.completedTubes}
-        onTubePress={onBottlePress}
-        invalidPlacement={gameState.invalidPlacement}
-        onInvalidPlacementEnd={handleInvalidPlacementEnd}
-        floatingPoints={gameState.floatingPoints}
-        onDismissFloatingPoint={handleDismissFloatingPoint}
-        lockedTubeIndices={lockedTubeIndices}
-        onBottleRects={setBottleRects}
-      />
-
-      <BallTray
-        balls={gameState.tray}
-        selectedBallId={gameState.selectedBall}
-        draggingBallId={draggingBall?.ball.id ?? null}
-        onDragStart={onDragStart}
-        onDragMove={onDragMove}
-        onDragEnd={onDragEnd}
-      />
-
-      <View style={styles.actions}>
-        <Pressable
-          onPress={() => router.push('/level-select')}
-          accessibilityRole="button"
-          accessibilityLabel="Open level map"
-          style={styles.mapButton}
-        >
-          <GameIcon name="grid" color="#dcecf0" size={20} />
-        </Pressable>
-        <Pressable
-          onPress={onUndo}
-          disabled={gameState.history.length === 0}
-          accessibilityRole="button"
-          accessibilityLabel="Undo last move"
-          hitSlop={12}
-          pressRetentionOffset={12}
-          style={[styles.undoButton, gameState.history.length === 0 && styles.disabled]}
-        >
-          <GameIcon name="undo" color="#f8fafc" size={21} />
-        </Pressable>
-      </View>
-
-      </ScrollView>
-
-      {paused && !gameState.gameOver && (
-        <View style={styles.overlay}>
-          <View style={styles.overlayCard}>
-            <View style={styles.overlayIconCircle}><GameIcon name="pause" color="#fcd34d" size={22} /></View>
-            <Text style={styles.overlayEyebrow}>GAME ON HOLD</Text>
-            <Text style={styles.overlayTitle}>Take a breath</Text>
-            <Text style={styles.overlayCopy}>Your bottles are waiting for the perfect balance.</Text>
-            <Button label="RESUME PLAY" variant="primary" onPress={() => setPaused(false)} style={styles.overlayButton} />
-            <Button
-              label="RESTART LEVEL"
-              variant="secondary"
-              onPress={() => {
-                handleResetGame();
-                setPaused(false);
-              }}
-              style={styles.overlayButton}
-            />
-            <Button
-              label="LEVEL MAP"
-              variant="secondary"
-              onPress={() => router.push('/level-select')}
-              style={styles.overlayButton}
-            />
+        {coinInfo && (
+          <View style={styles.overlay}>
+            <View style={styles.overlayCard}>
+              <Text style={styles.overlayTitle}>
+                {gameState.progress.coins} coins
+              </Text>
+              <Text style={styles.overlayCopy}>
+                {gameState.coinsEarned} coins earned this attempt. Added to your
+                balance after completion.
+              </Text>
+              <Button label="KEEP PLAYING" onPress={() => setCoinInfo(false)} />
+            </View>
           </View>
+        )}
+
+        {gameState.status === "lost" && !showResultOverlay && <View pointerEvents="none" style={[StyleSheet.absoluteFill, {backgroundColor:"rgba(25,15,9,.18)"}]} />}
+        {gameOver && won && !reducedMotion && (
+          <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+            <Confetti />
+          </View>
+        )}
+
+        {paused && !gameOver && (
+          <View style={styles.overlay}>
+            <WoodPanel style={styles.pausePanel}>
+              <View style={styles.pauseIconCircle}>
+                <GameIcon name="pause" color={WOODLAND.gold} size={22} />
+              </View>
+              <Text style={styles.pauseEyebrow}>GAME ON HOLD</Text>
+              <Text style={styles.pauseTitle}>Take a breath</Text>
+              <Text style={styles.pauseCopy}>
+                Your bottles are waiting for the perfect balance.
+              </Text>
+              <WoodButton
+                label="Resume Play"
+                accessibilityLabel="RESUME PLAY"
+                variant="primary"
+                onPress={() => { fire("lightTap"); setPaused(false); }}
+                style={styles.pauseButton}
+              />
+              <WoodButton
+                label="Restart Level"
+                accessibilityLabel="RESTART LEVEL"
+                variant="secondary"
+                onPress={() => {
+                  fire("lightTap");
+                  handleResetGame();
+                  setPaused(false);
+                }}
+                style={styles.pauseButton}
+              />
+              <Text style={styles.pauseStats}>
+                {`${gameState.moves} moves`} · {gameState.score} points
+                {gameState.combo >= 2
+                  ? ` · ${comboLabel(gameState.combo)}`
+                  : ""}
+              </Text>
+              <View style={styles.pauseRow}>
+                <WoodButton
+                  label="Level Map"
+                  accessibilityLabel="LEVEL MAP"
+                  variant="secondary"
+                  onPress={() => { fire("lightTap"); router.push("/level-select"); }}
+                  style={styles.pauseRowButton}
+                />
+                <WoodButton
+                  label="Home"
+                  accessibilityLabel="HOME"
+                  variant="secondary"
+                  onPress={() => { fire("lightTap"); router.push("/"); }}
+                  style={styles.pauseRowButton}
+                />
+              </View>
+            </WoodPanel>
+          </View>
+        )}
+
+        {gameState.storageError && (
+          <View style={styles.overlay}>
+            <View style={styles.overlayCard}>
+              <Text style={styles.overlayCopy}>{gameState.storageError}</Text>
+              <Button
+                label="RETRY SAVE"
+                onPress={() => {
+                  void gameState.retrySave();
+                }}
+              />
+            </View>
+          </View>
+        )}
+        {showResultOverlay && !gameState.storageError && (
+          <FailureScreen reviveAvailable={reviveAvailable} reviveCost={reviveCost}
+            coins={gameState.progress.coins} busy={gameState.utilityBusy || rewardedAd.status === 'showing'}
+            rewardedAd={rewardedAd.supported ? { status: rewardedAd.status, notice: adNotice, onPress: onRewardedRevive } : undefined}
+            onRevive={onRevive} onRestart={handleResetGame} onLevels={() => router.push('/level-select')} />
+        )}
+      </SafeAreaView>
+
+      <Animated.View
+        pointerEvents="none"
+        style={[StyleSheet.absoluteFill, styles.screenFlash, screenFlashStyle]}
+      />
+
+      {draggingBall && (
+        <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+          <Animated.View
+            testID="dragged-weight"
+            {...RASTERIZE_PROPS}
+            style={[
+              {
+                position: "absolute",
+                zIndex: 100,
+                shadowColor: "#1f1004",
+                shadowOffset: { width: 3, height: 12 },
+                shadowOpacity: 0.55,
+                shadowRadius: 10,
+              },
+              draggedStyle,
+            ]}>
+            <Ball
+              color={draggingBall.ball.color}
+              weight={draggingBall.ball.weight}
+              size={dragRenderSize.current}
+            />
+          </Animated.View>
         </View>
       )}
 
-      {gameState.gameOver && (
-        <View style={styles.overlay}>
-          <View style={[styles.overlayCard, { borderColor: won ? '#10b981' : '#ef4444' }]}>
-            <View style={[styles.overlayBanner, { backgroundColor: won ? '#10b981' : '#ef4444' }]}>
-              <View style={styles.resultIcon}><GameIcon name={won ? 'check' : 'refresh'} color="#ffffff" size={22} /></View>
-              <Text style={styles.overlayBannerText}>{won ? 'BALANCE FOUND' : 'TRY AGAIN'}</Text>
-            </View>
-            <Text style={styles.overlaySubtitle}>{won ? 'Every bottle is perfectly balanced.' : 'The move counter ran dry.'}</Text>
-            <View style={styles.scorePanel}>
-              <Text style={styles.scoreLabel}>FINAL SCORE</Text>
-              <Text style={styles.overlayScore}>{gameState.score.toLocaleString()}</Text>
-            </View>
-            <Button
-              label={won ? 'VIEW REWARD' : 'TRY LEVEL AGAIN'}
-              variant={won ? 'primary' : 'danger'}
-              onPress={() => router.push('/level-complete')}
-              style={styles.overlayActionButton}
-            />
-          </View>
+      {rejectedBall && (
+        <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+          <ReturningWeight
+            size={dragRenderSize.current}
+            ball={rejectedBall.ball}
+            from={rejectedBall.from}
+            to={rejectedBall.to}
+            at={rejectedBall.at}
+          />
         </View>
       )}
-    </SafeAreaView>
-
-    {draggingBall && (
-      <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-        <View
-          style={{
-            position: 'absolute',
-            left: draggingBall.x - rootPage.current.x - getBallSize(draggingBall.ball.weight) / 2,
-            top: draggingBall.y - rootPage.current.y - getBallSize(draggingBall.ball.weight) / 2,
-          }}
-        >
-          <Ball color={draggingBall.ball.color} weight={draggingBall.ball.weight} />
-        </View>
-      </View>
-    )}
     </View>
   );
 }
@@ -418,205 +739,45 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
-    paddingHorizontal: 16,
-    paddingTop: 10,
-    paddingBottom: 12,
-    gap: 9,
+    backgroundColor: "transparent",
   },
-  scroll: {
-    flex: 1,
-  },
-  content: {
-    gap: 9,
-    paddingBottom: 18,
-  },
-  headerPill: {
-    overflow: 'hidden',
-  },
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  pillSheen: {
-    position: 'absolute',
-    top: 0,
-    left: 10,
-    right: 10,
-    height: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.18)',
-  },
-  iconButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  iconButtonText: {
-    color: '#f1f5f9',
-    fontSize: 18,
-  },
-  levelPill: {
-    flex: 1,
-    borderRadius: 24,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    gap: 2,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  levelPillTop: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  levelPillTitle: {
-    color: '#f1f5f9',
-    fontSize: 16,
-    fontFamily: FONTS.displayBold,
-  },
-  levelPillStars: {
-    color: '#fbbf24',
-    fontSize: 13,
-  },
-  levelPillSubtitle: {
-    color: '#a7f3d0',
-    fontSize: 11,
-    fontFamily: FONTS.displayMedium,
-  },
-  movesPill: {
-    borderRadius: 24,
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    alignItems: 'center',
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  movesPillLabel: {
-    color: '#94a3b8',
-    fontSize: 8,
-    letterSpacing: 1,
-    fontFamily: FONTS.displaySemiBold,
-  },
-  movesPillValue: {
-    color: '#fcd34d',
-    fontSize: 18,
-    fontFamily: FONTS.displayBold,
-  },
-  secondRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    minHeight: 38,
-  },
-  hintButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    borderRadius: 24,
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  hintIcon: {
-    width: 22,
-    height: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  hintLabel: {
-    color: '#f1f5f9',
-    fontSize: 14,
-    fontFamily: FONTS.displaySemiBold,
-  },
-  hintBadge: {
-    minWidth: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: '#fbbf24',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 4,
-  },
-  hintBadgeText: {
-    color: '#1e293b',
-    fontSize: 11,
-    fontFamily: FONTS.displayBold,
-  },
+  screenFlash: { backgroundColor: "#fff8eb" },
   disabled: {
     opacity: 0.45,
   },
   hintPanel: {
-    backgroundColor: 'rgba(10, 32, 43, 0.94)',
+    backgroundColor: "rgba(52, 33, 21, 0.94)",
     borderRadius: 12,
     padding: 12,
     borderWidth: 1,
-    borderColor: 'rgba(45, 212, 191, 0.55)',
-    shadowColor: '#0f766e',
+    borderColor: "rgba(246, 210, 160, 0.4)",
+    shadowColor: "#332014",
     shadowOpacity: 0.25,
     shadowRadius: 12,
     elevation: 5,
   },
   hintPanelText: {
-    color: '#ccfbf1',
+    color: "#fff0d8",
     fontSize: 12,
     lineHeight: 17,
   },
-  actions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    paddingTop: 4,
-    paddingBottom: 6,
-    justifyContent: 'flex-end',
-    alignSelf: 'center',
-  },
-  mapButton: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(38, 52, 58, 0.9)',
-    borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.16)',
-  },
-  undoButton: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#173246',
-    borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.15)',
-  },
   overlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(5, 18, 29, 0.82)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(30, 21, 14, 0.82)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   overlayCard: {
-    backgroundColor: '#102536',
+    backgroundColor: "#38281d",
     borderRadius: 20,
     borderWidth: 1,
     borderColor: UI_COLORS.border,
-    padding: 26,
-    alignItems: 'center',
+    padding: 18,
+    alignItems: "center",
     gap: 10,
-    minWidth: 286,
+    minWidth: 260,
     maxWidth: 340,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   overlayTitle: {
     color: UI_COLORS.text,
@@ -628,24 +789,24 @@ const styles = StyleSheet.create({
     minWidth: 220,
   },
   overlayBanner: {
-    alignSelf: 'stretch',
-    marginHorizontal: -24,
-    marginTop: -24,
+    alignSelf: "stretch",
+    marginHorizontal: -18,
+    marginTop: -18,
     paddingVertical: 14,
-    alignItems: 'center',
+    alignItems: "center",
     gap: 5,
   },
   overlayBannerText: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 18,
     fontFamily: FONTS.displayBold,
     letterSpacing: 0.5,
   },
   overlaySubtitle: {
-    color: '#94a3b8',
+    color: THEME.muted,
     fontSize: 13,
     marginTop: 8,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 19,
   },
   overlayScore: {
@@ -655,58 +816,120 @@ const styles = StyleSheet.create({
   },
   overlayActionButton: {
     marginTop: 8,
+    alignSelf: "stretch",
     minWidth: 180,
   },
   overlayIconCircle: {
     width: 58,
     height: 58,
     borderRadius: 29,
-    backgroundColor: 'rgba(245, 158, 11, 0.14)',
+    backgroundColor: "rgba(245, 158, 11, 0.14)",
     borderWidth: 1,
-    borderColor: 'rgba(252, 211, 77, 0.45)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderColor: "rgba(252, 211, 77, 0.45)",
+    alignItems: "center",
+    justifyContent: "center",
   },
   overlayEyebrow: {
-    color: '#fcd34d',
+    color: "#fcd34d",
     fontSize: 10,
     letterSpacing: 1.8,
     fontFamily: FONTS.displayBold,
   },
   overlayCopy: {
-    color: '#9fb5c4',
+    color: THEME.muted,
     fontSize: 12,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 18,
     marginTop: -3,
     marginBottom: 5,
+  },
+  pausePanel: {
+    alignItems: "center",
+    gap: 10,
+    paddingHorizontal: 22,
+    paddingVertical: 22,
+    minWidth: 270,
+    maxWidth: 340,
+  },
+  pauseIconCircle: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: "rgba(255, 220, 130, 0.16)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 224, 148, 0.5)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pauseEyebrow: {
+    color: WOODLAND.gold,
+    fontSize: 10,
+    letterSpacing: 1.8,
+    fontFamily: GAME_FONT,
+    fontWeight: "700",
+  },
+  pauseTitle: {
+    color: WOODLAND.cream,
+    fontSize: 25,
+    fontFamily: GAME_FONT,
+    fontWeight: "800",
+    marginBottom: 2,
+    textShadowColor: "#291305",
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 2,
+  },
+  pauseCopy: {
+    color: WOODLAND.muted,
+    fontFamily: GAME_FONT,
+    fontSize: 13,
+    textAlign: "center",
+    lineHeight: 18,
+    marginTop: -3,
+    marginBottom: 5,
+  },
+  pauseButton: {
+    alignSelf: "stretch",
+  },
+  pauseStats: {
+    color: WOODLAND.muted,
+    fontFamily: GAME_FONT,
+    fontSize: 12,
+    textAlign: "center",
+  },
+  pauseRow: {
+    flexDirection: "row",
+    gap: 10,
+    alignSelf: "stretch",
+  },
+  pauseRowButton: {
+    flex: 1,
   },
   resultIcon: {
     width: 34,
     height: 34,
     borderRadius: 17,
-    backgroundColor: 'rgba(255,255,255,0.18)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "rgba(255,255,255,0.18)",
+    alignItems: "center",
+    justifyContent: "center",
   },
   scorePanel: {
-    alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.06)",
     borderRadius: 12,
     paddingHorizontal: 32,
     paddingVertical: 9,
     marginTop: 5,
   },
   scoreLabel: {
-    color: '#86a4b5',
+    color: "#86a4b5",
     fontSize: 9,
     letterSpacing: 1.4,
     fontFamily: FONTS.displaySemiBold,
   },
   pauseIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 4,
   },
   pauseBar: {
@@ -715,8 +938,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   bulbIcon: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   bulbHead: {
     width: 13,
@@ -732,24 +955,24 @@ const styles = StyleSheet.create({
   },
   undoMark: {
     borderWidth: 2,
-    borderRightColor: 'transparent',
-    borderTopColor: 'transparent',
+    borderRightColor: "transparent",
+    borderTopColor: "transparent",
     borderRadius: 12,
-    transform: [{ rotate: '25deg' }],
+    transform: [{ rotate: "25deg" }],
   },
   undoArrow: {
-    position: 'absolute',
+    position: "absolute",
     left: -3,
     top: 1,
     width: 8,
     height: 8,
     borderLeftWidth: 2,
     borderBottomWidth: 2,
-    transform: [{ rotate: '35deg' }],
+    transform: [{ rotate: "35deg" }],
   },
   gridIcon: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 3,
     padding: 2,
   },
@@ -761,8 +984,8 @@ const styles = StyleSheet.create({
   playIcon: {
     width: 0,
     height: 0,
-    borderTopColor: 'transparent',
-    borderBottomColor: 'transparent',
+    borderTopColor: "transparent",
+    borderBottomColor: "transparent",
     borderRightWidth: 0,
   },
   symbolIcon: {
@@ -770,8 +993,8 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   lockIcon: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   lockShackle: {
     width: 11,

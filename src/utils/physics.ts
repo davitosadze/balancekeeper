@@ -1,72 +1,44 @@
-import type { Tube } from '@/types/game';
-import { TUBE_CAPACITY, DEFAULT_UNLOCK_AFTER_COMPLETIONS } from './constants';
+import type { Tube } from '../types/game';
 
-/**
- * Sums the weight (kg) of every ball currently in a bottle.
- * @param tube - The bottle to evaluate.
- * @returns Total weight in kg.
- */
-export function bottleWeight(tube: Tube): number {
-  if (!tube) return 0;
-  return tube.balls.reduce((sum, ball) => sum + ball.weight, 0);
+export function calculateBottleWeight(tube: Tube): number {
+  return tube?.balls.reduce((sum, ball) => sum + ball.weight, 0) ?? 0;
 }
-
-/**
- * A bottle is complete when its balls sum to exactly its target weight.
- * @param tube - The bottle to evaluate.
- * @returns Whether the bottle is exactly full.
- */
-export function isBottleComplete(tube: Tube): boolean {
-  return bottleWeight(tube) === tube.target;
+export const bottleWeight = calculateBottleWeight;
+export function isBottleSolved(tube: Tube): boolean { return bottleWeight(tube) === tube.target; }
+export const isBottleComplete = isBottleSolved;
+export function isLevelComplete(tubes: Tube[]): boolean { return tubes.length > 0 && tubes.every(isBottleSolved); }
+/** Locks are derived from the referenced bottle, never a global solved count. */
+export function isBottleLocked(tube: Tube, bottles: readonly Tube[]): boolean {
+  if (tube.type !== 'locked') return false;
+  const prerequisite = bottles.find(bottle => bottle.id === tube.unlockAfter);
+  return !prerequisite || !isBottleSolved(prerequisite)
+    || (prerequisite.durability != null && (prerequisite.damage ?? 0) >= prerequisite.durability);
 }
-
-/**
- * Locked-bottle gimmick: a tube listed in lockedTubes stays locked (cannot
- * receive balls) until enough other tubes have been completed.
- * @param tubeIndex - The tube to check.
- * @param lockedTubes - Tube indices that start locked for this level.
- * @param completedCount - How many tubes have been completed so far.
- * @param unlockAfterCompletions - Completions needed to unlock (default 1).
- * @returns Whether the tube is currently locked.
- */
-export function isTubeLocked(
-  tubeIndex: number,
-  lockedTubes: number[] | undefined,
-  completedCount: number,
-  unlockAfterCompletions: number = DEFAULT_UNLOCK_AFTER_COMPLETIONS
-): boolean {
-  if (!lockedTubes || !lockedTubes.includes(tubeIndex)) return false;
-  return completedCount < unlockAfterCompletions;
+export function getLockedBottleIndices(bottles: readonly Tube[]): number[] {
+  return bottles.filter(bottle => isBottleLocked(bottle, bottles)).map(bottle => bottle.index);
 }
-
-/** Lock-state context passed to canPlaceBall so it can reject locked bottles. */
-export interface LockState {
-  lockedTubes: number[];
-  completedCount: number;
-  unlockAfterCompletions?: number;
+export interface LockState { bottles: readonly Tube[] }
+/** Foundation for any future removal UI. Undo restores snapshots independently. */
+export function canManuallyRemoveBall(tube: Tube, weightId: string): boolean {
+  return !!tube && !['oneWay', 'one-way'].includes(tube.type ?? 'normal')
+    && !((tube.damage ?? 0) >= (tube.durability ?? (tube.type === 'fragile' ? 1 : 3)))
+    && tube.balls.some(ball => ball.id === weightId);
 }
-
-/**
- * Determines whether a ball can legally be placed into a bottle.
- * Rules:
- *  - The bottle may not be locked (see isTubeLocked).
- *  - The bottle must have a free slot (< TUBE_CAPACITY balls).
- *  - The bottle's current weight plus the ball's weight must not exceed its target.
- * @param tube - The destination bottle.
- * @param ballWeight - Weight (kg) of the ball being placed.
- * @param lockState - Optional locked-bottle context for this level.
- * @param tubeIndex - Index of the destination bottle, required when lockState is given.
- * @returns Whether the placement is valid.
- */
-export function canPlaceBall(tube: Tube, ballWeight: number, lockState?: LockState, tubeIndex?: number): boolean {
-  if (!tube) return false;
-
-  if (lockState && tubeIndex !== undefined) {
-    const { lockedTubes, completedCount, unlockAfterCompletions } = lockState;
-    if (isTubeLocked(tubeIndex, lockedTubes, completedCount, unlockAfterCompletions)) return false;
-  }
-
-  if (tube.balls.length >= TUBE_CAPACITY) return false;
-
-  return bottleWeight(tube) + ballWeight <= tube.target;
+export type PlacementRejectionReason = 'locked' | 'broken' | 'invalid' | 'overload' | 'exact';
+export function getRejectionReason(tube: Tube, ballWeight: number, lockState?: LockState, tubeIndex?: number): PlacementRejectionReason | null {
+  if (!tube || !Number.isFinite(ballWeight) || ballWeight <= 0) return 'invalid';
+  if (!['normal','fragile','locked','exact','oneWay','one-way'].includes(tube.type ?? 'normal')) return 'invalid';
+  if ((tube.damage ?? 0) >= (tube.durability ?? (tube.type === 'fragile' ? 1 : 3))) return 'broken';
+  // A caller must provide the board when evaluating a referenced lock.
+  if (tube.type === 'locked' && (!lockState || isBottleLocked(tube, lockState.bottles))) return 'locked';
+  if (tube.type === 'exact' && bottleWeight(tube) + ballWeight > tube.target) return tube.damageOnOverload ? 'overload' : 'exact';
+  return bottleWeight(tube) + ballWeight > tube.target ? 'overload' : null;
+}
+export function evaluateDrop(tube: Tube, ballWeight: number, lockState?: LockState, tubeIndex?: number) {
+  const reason = getRejectionReason(tube, ballWeight, lockState, tubeIndex);
+  const nextWeight = bottleWeight(tube) + ballWeight;
+  return { accepted: reason === null, reason, nextWeight, perfectFit: reason === null && nextWeight === tube.target };
+}
+export function canPlaceBall(tube: Tube, ballWeight: number, lockState?: LockState, tubeIndex?: number) {
+  return getRejectionReason(tube, ballWeight, lockState, tubeIndex) === null;
 }

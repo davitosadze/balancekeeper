@@ -1,0 +1,7608 @@
+[
+  {
+    "name": "Your First Balance",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic"
+    ],
+    "tutorial": {
+      "type": "drag",
+      "step": 1,
+      "message": "Drag the 5 kg weight into the bottle to match its target."
+    },
+    "id": 1,
+    "difficulty": "tutorial",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 5,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": false,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 25
+    },
+    "stars": {
+      "threeStarMaxMoves": 1,
+      "twoStarMaxMoves": 3
+    },
+    "recommendedMoves": 3,
+    "minimumMoves": 1,
+    "difficultyScore": 6
+  },
+  {
+    "name": "Better Together",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic"
+    ],
+    "tutorial": {
+      "type": "combination",
+      "step": 1,
+      "message": "Combine 3 kg and 5 kg to reach the 8 kg target."
+    },
+    "id": 2,
+    "difficulty": "tutorial",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 8,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": false,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 25
+    },
+    "stars": {
+      "threeStarMaxMoves": 2,
+      "twoStarMaxMoves": 4
+    },
+    "recommendedMoves": 4,
+    "minimumMoves": 2,
+    "difficultyScore": 7
+  },
+  {
+    "name": "Two Bottles",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic"
+    ],
+    "tutorial": {
+      "type": "multiple-bottles",
+      "step": 1,
+      "message": "Match both targets: 5 kg on the left, 9 kg on the right."
+    },
+    "id": 3,
+    "difficulty": "tutorial",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 5,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 9,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 3,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 5,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": false,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 30
+    },
+    "stars": {
+      "threeStarMaxMoves": 4,
+      "twoStarMaxMoves": 6
+    },
+    "recommendedMoves": 6,
+    "minimumMoves": 4,
+    "difficultyScore": 14
+  },
+  {
+    "name": "Choose Your Pair",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic"
+    ],
+    "tutorial": {
+      "type": "choice",
+      "step": 1,
+      "message": "Plan both pairs before placing them. Undo can help you try again."
+    },
+    "id": 4,
+    "difficulty": "easy",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 7,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 3,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 40
+    },
+    "stars": {
+      "threeStarMaxMoves": 4,
+      "twoStarMaxMoves": 6
+    },
+    "recommendedMoves": 6,
+    "minimumMoves": 4,
+    "difficultyScore": 14
+  },
+  {
+    "name": "Three in Harmony",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic"
+    ],
+    "tutorial": {
+      "type": "multiple-bottles",
+      "step": 2,
+      "message": "Three bottles, three targets. Take your time and find each combination."
+    },
+    "id": 5,
+    "difficulty": "easy",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 6,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 8,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 4,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 3,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 5,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 4,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 50
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 8
+    },
+    "recommendedMoves": 8,
+    "minimumMoves": 6,
+    "difficultyScore": 21
+  },
+  {
+    "name": "Steady Hands",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic"
+    ],
+    "tutorial": {
+      "type": "choice",
+      "step": 2,
+      "message": "Every bottle has one exact weight to reach — plan before you drop."
+    },
+    "id": 6,
+    "difficulty": "tutorial",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 3,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 30
+    },
+    "stars": {
+      "threeStarMaxMoves": 4,
+      "twoStarMaxMoves": 6
+    },
+    "recommendedMoves": 6,
+    "minimumMoves": 4,
+    "difficultyScore": 14
+  },
+  {
+    "name": "Every Gram Counts",
+    "source": "handcrafted",
+    "kind": "standard",
+    "mechanics": [
+      "basic"
+    ],
+    "tutorial": {
+      "type": "multiple-bottles",
+      "step": 3,
+      "message": "There is no room for extra weight — match each target exactly."
+    },
+    "id": 7,
+    "difficulty": "easy",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 8,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 55
+    },
+    "stars": {
+      "threeStarMaxMoves": 4,
+      "twoStarMaxMoves": 6
+    },
+    "recommendedMoves": 6,
+    "minimumMoves": 4,
+    "difficultyScore": 14
+  },
+  {
+    "name": "The First Crack",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic",
+      "overload"
+    ],
+    "tutorial": {
+      "type": "overload",
+      "step": 1,
+      "message": "Overloading damages bottles. The 9 kg weight exceeds the left bottle’s 5 kg target; a first crack is recoverable."
+    },
+    "id": 8,
+    "difficulty": "tutorial",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 5,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 3,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 30
+    },
+    "stars": {
+      "threeStarMaxMoves": 4,
+      "twoStarMaxMoves": 6
+    },
+    "recommendedMoves": 6,
+    "minimumMoves": 4,
+    "difficultyScore": 16
+  },
+  {
+    "name": "Glass Has Limits",
+    "source": "handcrafted",
+    "kind": "tutorial",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability"
+    ],
+    "tutorial": {
+      "type": "durability",
+      "step": 1
+    },
+    "id": 9,
+    "difficulty": "easy",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 8,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 9,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 2,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 12,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 60
+    },
+    "stars": {
+      "threeStarMaxMoves": 4,
+      "twoStarMaxMoves": 6
+    },
+    "recommendedMoves": 6,
+    "minimumMoves": 4,
+    "difficultyScore": 16
+  },
+  {
+    "name": "The First Challenge",
+    "source": "handcrafted",
+    "kind": "milestone",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "milestone": {
+      "title": "FIRST CHALLENGE COMPLETE",
+      "completionMessage": "Three bottles. One perfect balance. Your first milestone is complete."
+    },
+    "id": 10,
+    "difficulty": "challenge",
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 9,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 12,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 150
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 8
+    },
+    "recommendedMoves": 8,
+    "minimumMoves": 6,
+    "difficultyScore": 23
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability"
+    ],
+    "kind": "recovery",
+    "name": "Room to Breathe",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:11:0",
+      "attempt": 0
+    },
+    "id": 11,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 12,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w3",
+        "value": 5,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 41
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 21
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability"
+    ],
+    "kind": "standard",
+    "name": "Pieces in Place",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:12:0",
+      "attempt": 0
+    },
+    "id": 12,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 19,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w6",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 2,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 9,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 82
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 10
+    },
+    "recommendedMoves": 10,
+    "minimumMoves": 7,
+    "difficultyScore": 29
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "tutorial": {
+      "type": "combo",
+      "step": 1
+    },
+    "kind": "tutorial",
+    "name": "Find Your Rhythm",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:13:0",
+      "attempt": 0
+    },
+    "id": 13,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 4,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 2,
+        "color": "cyan",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 69
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 23
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "kind": "standard",
+    "name": "Pieces in Place",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:14:0",
+      "attempt": 0
+    },
+    "id": 14,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 12,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w6",
+        "value": 4,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 5,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 2,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 6,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 74
+    },
+    "stars": {
+      "threeStarMaxMoves": 8,
+      "twoStarMaxMoves": 11
+    },
+    "recommendedMoves": 11,
+    "minimumMoves": 8,
+    "difficultyScore": 32
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "kind": "standard",
+    "name": "A Closer Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:15:0",
+      "attempt": 0
+    },
+    "id": 15,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 13,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 17,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 22,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 15,
+        "durability": 2,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w6",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 6,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 9,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 10,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 7,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 4,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 18,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 7,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 12,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 103
+    },
+    "stars": {
+      "threeStarMaxMoves": 8,
+      "twoStarMaxMoves": 11
+    },
+    "recommendedMoves": 11,
+    "minimumMoves": 8,
+    "difficultyScore": 32
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "kind": "recovery",
+    "name": "Room to Breathe",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:16:0",
+      "attempt": 0
+    },
+    "id": 16,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w5",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 3,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 5,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 2,
+        "color": "yellow",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 49
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 16
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "kind": "standard",
+    "name": "Pieces in Place",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:17:0",
+      "attempt": 0
+    },
+    "id": 17,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 17,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 2,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 13,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 87
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 25
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "kind": "standard",
+    "name": "A Closer Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:18:0",
+      "attempt": 0
+    },
+    "id": 18,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 19,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 22,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 20,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 14,
+        "durability": 2,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w11",
+        "value": 11,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 21,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 7,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w13",
+        "value": 11,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 9,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 2,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 5,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 4,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 120
+    },
+    "stars": {
+      "threeStarMaxMoves": 8,
+      "twoStarMaxMoves": 11
+    },
+    "recommendedMoves": 11,
+    "minimumMoves": 8,
+    "difficultyScore": 34
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "kind": "standard",
+    "name": "A Closer Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:19:0",
+      "attempt": 0
+    },
+    "id": 19,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 13,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 17,
+        "durability": 2,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w3",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 2,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 108
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 31
+  },
+  {
+    "difficulty": "challenge",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo"
+    ],
+    "milestone": {
+      "title": "MILESTONE 20",
+      "completionMessage": "A new milestone in perfect balance."
+    },
+    "kind": "milestone",
+    "name": "Milestone 20",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:20:0",
+      "attempt": 0
+    },
+    "id": 20,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 17,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w5",
+        "value": 3,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 6,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 10,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 10,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 7,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": null,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 175
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 33
+  },
+  {
+    "difficulty": "tutorial",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "tutorial": {
+      "type": "move-limit",
+      "step": 1
+    },
+    "kind": "tutorial",
+    "name": "Make Every Move Count",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:21:0",
+      "attempt": 0
+    },
+    "id": 21,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 3,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 2,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 5,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 28
+    },
+    "stars": {
+      "threeStarMaxMoves": 5,
+      "twoStarMaxMoves": 7
+    },
+    "recommendedMoves": 7,
+    "minimumMoves": 4,
+    "difficultyScore": 14
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "standard",
+    "name": "Pieces in Place",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:22:0",
+      "attempt": 0
+    },
+    "id": 22,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w2",
+        "value": 2,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 2,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 56
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 8
+    },
+    "recommendedMoves": 8,
+    "minimumMoves": 5,
+    "difficultyScore": 15
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "standard",
+    "name": "Pieces in Place",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:23:0",
+      "attempt": 0
+    },
+    "id": 23,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 2,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 3,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 16,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 63
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 28
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "standard",
+    "name": "Pieces in Place",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:24:0",
+      "attempt": 0
+    },
+    "id": 24,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 21,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 6,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 10,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 2,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 16,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 2,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 69
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 23
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "standard",
+    "name": "A Closer Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:25:0",
+      "attempt": 0
+    },
+    "id": 25,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 23,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 19,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w13",
+        "value": 21,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 7,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 4,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 15,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 2,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 5,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 3,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 7,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w11",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 8,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 109
+    },
+    "stars": {
+      "threeStarMaxMoves": 8,
+      "twoStarMaxMoves": 11
+    },
+    "recommendedMoves": 11,
+    "minimumMoves": 8,
+    "difficultyScore": 32
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "recovery",
+    "name": "Room to Breathe",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:26:0",
+      "attempt": 0
+    },
+    "id": 26,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 12,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 2,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 5,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 54
+    },
+    "stars": {
+      "threeStarMaxMoves": 5,
+      "twoStarMaxMoves": 7
+    },
+    "recommendedMoves": 7,
+    "minimumMoves": 4,
+    "difficultyScore": 14
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "standard",
+    "name": "Pieces in Place",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:27:0",
+      "attempt": 0
+    },
+    "id": 27,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 17,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 5,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 8,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 81
+    },
+    "stars": {
+      "threeStarMaxMoves": 8,
+      "twoStarMaxMoves": 11
+    },
+    "recommendedMoves": 11,
+    "minimumMoves": 8,
+    "difficultyScore": 28
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "standard",
+    "name": "A Closer Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:28:0",
+      "attempt": 0
+    },
+    "id": 28,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 15,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 18,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b5",
+        "target": 14,
+        "durability": 2,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w2",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 15,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 5,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 6,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 9,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 111
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 36
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "standard",
+    "name": "A Closer Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:29:0",
+      "attempt": 0
+    },
+    "id": 29,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 20,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 18,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w8",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 16,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 5,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 2,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 10,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w14",
+        "value": 18,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w13",
+        "value": 17,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 10,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w11",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 98
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 32
+  },
+  {
+    "difficulty": "challenge",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "milestone": {
+      "title": "MILESTONE 30",
+      "completionMessage": "A new milestone in perfect balance."
+    },
+    "kind": "milestone",
+    "name": "Milestone 30",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:30:0",
+      "attempt": 0
+    },
+    "id": 30,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 18,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 17,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b5",
+        "target": 14,
+        "durability": 2,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 9,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 7,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 5,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w11",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 11,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 195
+    },
+    "stars": {
+      "threeStarMaxMoves": 11,
+      "twoStarMaxMoves": 14
+    },
+    "recommendedMoves": 14,
+    "minimumMoves": 11,
+    "difficultyScore": 38
+  },
+  {
+    "difficulty": "tutorial",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "tutorial": {
+      "type": "fragile",
+      "step": 1
+    },
+    "kind": "tutorial",
+    "name": "Handle with Care",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:31:0",
+      "attempt": 0
+    },
+    "id": 31,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 7,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 8,
+        "durability": 1,
+        "type": "fragile"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 3,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 2,
+        "color": "yellow",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 5,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 29
+    },
+    "stars": {
+      "threeStarMaxMoves": 5,
+      "twoStarMaxMoves": 7
+    },
+    "recommendedMoves": 7,
+    "minimumMoves": 4,
+    "difficultyScore": 17
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "kind": "standard",
+    "name": "Delicate Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:32:0",
+      "attempt": 0
+    },
+    "id": 32,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 12,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 10,
+        "durability": 1,
+        "type": "fragile"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w3",
+        "value": 3,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 4,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 51
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 8
+    },
+    "recommendedMoves": 8,
+    "minimumMoves": 5,
+    "difficultyScore": 18
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "kind": "standard",
+    "name": "Delicate Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:33:0",
+      "attempt": 0
+    },
+    "id": 33,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 19,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 21,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 6,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 19,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 6,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 71
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 28
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "kind": "standard",
+    "name": "Delicate Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:34:0",
+      "attempt": 0
+    },
+    "id": 34,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 18,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 15,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w7",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 3,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 14,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 5,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 2,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 5,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 68
+    },
+    "stars": {
+      "threeStarMaxMoves": 5,
+      "twoStarMaxMoves": 8
+    },
+    "recommendedMoves": 8,
+    "minimumMoves": 5,
+    "difficultyScore": 25
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "kind": "standard",
+    "name": "Delicate Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:35:0",
+      "attempt": 0
+    },
+    "id": 35,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 13,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 17,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 16,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b5",
+        "target": 14,
+        "durability": 2,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w11",
+        "value": 15,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 9,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 9,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 5,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 10,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 9,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 116
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 44
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "recovery",
+    "name": "Room to Breathe",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:36:0",
+      "attempt": 0
+    },
+    "id": 36,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 8,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 4,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 6,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 2,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 7,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 56
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 21
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "kind": "standard",
+    "name": "Delicate Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:37:0",
+      "attempt": 0
+    },
+    "id": 37,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 11,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 10,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w3",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 7,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 4,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 15,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 2,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 5,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 63
+    },
+    "stars": {
+      "threeStarMaxMoves": 5,
+      "twoStarMaxMoves": 8
+    },
+    "recommendedMoves": 8,
+    "minimumMoves": 5,
+    "difficultyScore": 25
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "kind": "standard",
+    "name": "Delicate Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:38:0",
+      "attempt": 0
+    },
+    "id": 38,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 17,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 13,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b5",
+        "target": 14,
+        "durability": 2,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w8",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 9,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 7,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 9,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 6,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 17,
+        "color": "purple",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 9,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 122
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 42
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "kind": "standard",
+    "name": "Delicate Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:39:0",
+      "attempt": 0
+    },
+    "id": 39,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 14,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 17,
+        "durability": 1,
+        "type": "fragile"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w8",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 6,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 9,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 16,
+        "color": "red",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 7,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 114
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 10
+    },
+    "recommendedMoves": 10,
+    "minimumMoves": 7,
+    "difficultyScore": 35
+  },
+  {
+    "difficulty": "challenge",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile"
+    ],
+    "milestone": {
+      "title": "MILESTONE 40",
+      "completionMessage": "A new milestone in perfect balance."
+    },
+    "kind": "milestone",
+    "name": "Milestone 40",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:40:0",
+      "attempt": 0
+    },
+    "id": 40,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 18,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 17,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b4",
+        "target": 14,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b5",
+        "target": 20,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w10",
+        "value": 2,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 9,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 10,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 10,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w13",
+        "value": 14,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 14,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w11",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 10,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 220
+    },
+    "stars": {
+      "threeStarMaxMoves": 10,
+      "twoStarMaxMoves": 13
+    },
+    "recommendedMoves": 13,
+    "minimumMoves": 10,
+    "difficultyScore": 45
+  },
+  {
+    "difficulty": "tutorial",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "locked"
+    ],
+    "tutorial": {
+      "type": "locked",
+      "step": 1
+    },
+    "kind": "tutorial",
+    "name": "The First Key",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:41:0",
+      "attempt": 0
+    },
+    "id": 41,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 10,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 12,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b1"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w1",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 4,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 5,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 26
+    },
+    "stars": {
+      "threeStarMaxMoves": 5,
+      "twoStarMaxMoves": 7
+    },
+    "recommendedMoves": 7,
+    "minimumMoves": 4,
+    "difficultyScore": 17
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "locked"
+    ],
+    "kind": "standard",
+    "name": "Order and Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:42:0",
+      "attempt": 0
+    },
+    "id": 42,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b1"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 5,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 58
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 8
+    },
+    "recommendedMoves": 8,
+    "minimumMoves": 5,
+    "difficultyScore": 18
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "locked"
+    ],
+    "kind": "standard",
+    "name": "Order and Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:43:0",
+      "attempt": 0
+    },
+    "id": 43,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 12,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 10,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b1"
+      },
+      {
+        "id": "b4",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w10",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 15,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 4,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 5,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 3,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 7,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 3,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 6,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 80
+    },
+    "stars": {
+      "threeStarMaxMoves": 6,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 33
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "locked"
+    ],
+    "kind": "standard",
+    "name": "Order and Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:44:0",
+      "attempt": 0
+    },
+    "id": 44,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 22,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 18,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 10,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b1"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w3",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 4,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 10,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 8,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 7,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 79
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 10
+    },
+    "recommendedMoves": 10,
+    "minimumMoves": 7,
+    "difficultyScore": 25
+  },
+  {
+    "difficulty": "challenge",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "locked"
+    ],
+    "kind": "standard",
+    "name": "Order and Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:45:0",
+      "attempt": 0
+    },
+    "id": 45,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 14,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 16,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 17,
+        "durability": 2,
+        "type": "locked",
+        "unlockAfter": "b1"
+      },
+      {
+        "id": "b4",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b5",
+        "target": 18,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b3"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w11",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 4,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 17,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 6,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 9,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 9,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 180
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 44
+  },
+  {
+    "difficulty": "easy",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal"
+    ],
+    "kind": "recovery",
+    "name": "Room to Breathe",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:46:0",
+      "attempt": 0
+    },
+    "id": 46,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 13,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 7,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b3",
+        "target": 15,
+        "durability": 3,
+        "type": "normal"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w6",
+        "value": 7,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 3,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 4,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 8,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 7,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 46
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 9
+    },
+    "recommendedMoves": 9,
+    "minimumMoves": 6,
+    "difficultyScore": 21
+  },
+  {
+    "difficulty": "medium",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile",
+      "locked"
+    ],
+    "kind": "standard",
+    "name": "Order and Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:47:0",
+      "attempt": 0
+    },
+    "id": 47,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 18,
+        "durability": 3,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 12,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 15,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b1"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w5",
+        "value": 3,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 2,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 5,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 10,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 7,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 82
+    },
+    "stars": {
+      "threeStarMaxMoves": 7,
+      "twoStarMaxMoves": 10
+    },
+    "recommendedMoves": 10,
+    "minimumMoves": 7,
+    "difficultyScore": 28
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile",
+      "locked"
+    ],
+    "kind": "standard",
+    "name": "Order and Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:48:0",
+      "attempt": 0
+    },
+    "id": 48,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 14,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 18,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b1"
+      },
+      {
+        "id": "b4",
+        "target": 20,
+        "durability": 1,
+        "type": "fragile"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w13",
+        "value": 6,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 7,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 6,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 7,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 8,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 5,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 6,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 7,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 14,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 9,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b4"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 9,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 119
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 44
+  },
+  {
+    "difficulty": "hard",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile",
+      "locked"
+    ],
+    "kind": "standard",
+    "name": "Order and Balance",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:49:0",
+      "attempt": 0
+    },
+    "id": 49,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 17,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 14,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 16,
+        "durability": 2,
+        "type": "locked",
+        "unlockAfter": "b1"
+      },
+      {
+        "id": "b4",
+        "target": 13,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b5",
+        "target": 19,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b3"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w8",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 7,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 8,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 17,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 9,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 3,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 7,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 6,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 3,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w4",
+        "value": 6,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w13",
+        "value": 10,
+        "color": "blue",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w11",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 9,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 125
+    },
+    "stars": {
+      "threeStarMaxMoves": 9,
+      "twoStarMaxMoves": 12
+    },
+    "recommendedMoves": 12,
+    "minimumMoves": 9,
+    "difficultyScore": 50
+  },
+  {
+    "difficulty": "challenge",
+    "mechanics": [
+      "basic",
+      "overload",
+      "durability",
+      "combo",
+      "move-goal",
+      "fragile",
+      "locked"
+    ],
+    "milestone": {
+      "title": "BALANCE MASTER",
+      "completionMessage": "Every skill, perfectly balanced. The first campaign is complete."
+    },
+    "kind": "milestone",
+    "name": "The Balance Master",
+    "source": "generated",
+    "generation": {
+      "seed": "balance-keeper-v1:50:0",
+      "attempt": 0
+    },
+    "id": 50,
+    "generationVersion": 1,
+    "bottles": [
+      {
+        "id": "b1",
+        "target": 15,
+        "durability": 2,
+        "type": "normal"
+      },
+      {
+        "id": "b2",
+        "target": 14,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b3",
+        "target": 17,
+        "durability": 3,
+        "type": "locked",
+        "unlockAfter": "b1"
+      },
+      {
+        "id": "b4",
+        "target": 16,
+        "durability": 1,
+        "type": "fragile"
+      },
+      {
+        "id": "b5",
+        "target": 18,
+        "durability": 2,
+        "type": "locked",
+        "unlockAfter": "b3"
+      }
+    ],
+    "weights": [
+      {
+        "id": "w4",
+        "value": 4,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w12",
+        "value": 8,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w11",
+        "value": 9,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w7",
+        "value": 7,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w3",
+        "value": 4,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w9",
+        "value": 6,
+        "color": "yellow",
+        "type": "normal"
+      },
+      {
+        "id": "w6",
+        "value": 10,
+        "color": "cyan",
+        "type": "normal"
+      },
+      {
+        "id": "w5",
+        "value": 10,
+        "color": "purple",
+        "type": "normal"
+      },
+      {
+        "id": "w10",
+        "value": 9,
+        "color": "red",
+        "type": "normal"
+      },
+      {
+        "id": "w1",
+        "value": 2,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w13",
+        "value": 8,
+        "color": "blue",
+        "type": "normal"
+      },
+      {
+        "id": "w2",
+        "value": 9,
+        "color": "green",
+        "type": "normal"
+      },
+      {
+        "id": "w8",
+        "value": 10,
+        "color": "green",
+        "type": "normal"
+      }
+    ],
+    "intendedSolution": [
+      {
+        "weightId": "w1",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w2",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w3",
+        "bottleId": "b1"
+      },
+      {
+        "weightId": "w4",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w5",
+        "bottleId": "b2"
+      },
+      {
+        "weightId": "w6",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w7",
+        "bottleId": "b3"
+      },
+      {
+        "weightId": "w8",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w9",
+        "bottleId": "b4"
+      },
+      {
+        "weightId": "w10",
+        "bottleId": "b5"
+      },
+      {
+        "weightId": "w11",
+        "bottleId": "b5"
+      }
+    ],
+    "rules": {
+      "allowUndo": true,
+      "allowHint": true,
+      "allowShuffle": true,
+      "freeHints": 1,
+      "freeUndos": 3,
+      "hintCost": 50,
+      "undoCost": 30,
+      "shuffleCost": 25,
+      "reviveCost": 150,
+      "moveLimit": 10,
+      "moveLimitMode": "stars"
+    },
+    "rewards": {
+      "perfectFitCoins": 10,
+      "threeStarBonus": 25,
+      "comboMilestones": {
+        "2": 2,
+        "3": 4,
+        "4": 6,
+        "5": 10
+      },
+      "baseCoins": 250
+    },
+    "stars": {
+      "threeStarMaxMoves": 10,
+      "twoStarMaxMoves": 13
+    },
+    "recommendedMoves": 13,
+    "minimumMoves": 10,
+    "difficultyScore": 51
+  }
+]

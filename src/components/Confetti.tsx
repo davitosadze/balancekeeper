@@ -1,6 +1,7 @@
+import { useReducedMotionPreference } from '@/hooks/useReducedMotionPreference';
 import React, { useEffect } from 'react';
 import { StyleSheet, useWindowDimensions } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, withDelay, Easing } from 'react-native-reanimated';
+import Animated, { cancelAnimation, useSharedValue, useAnimatedStyle, withTiming, withDelay, Easing } from 'react-native-reanimated';
 import { COLORS } from '@/utils/constants';
 
 const PIECE_COUNT = 24;
@@ -25,6 +26,7 @@ interface Piece {
  */
 export default function Confetti() {
   const { width } = useWindowDimensions();
+  const reduced = useReducedMotionPreference();
 
   const pieces: Piece[] = React.useMemo(
     () =>
@@ -40,6 +42,7 @@ export default function Confetti() {
     [width]
   );
 
+  if(reduced) return null;
   return (
     <>
       {pieces.map((piece, i) => (
@@ -57,8 +60,8 @@ function ConfettiPiece({ piece }: { piece: Piece }) {
       piece.delay,
       withTiming(1, { duration: DURATION_MS, easing: Easing.in(Easing.quad) })
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => cancelAnimation(progress);
+  }, [progress]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [

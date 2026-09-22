@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import { useReducedMotionPreference } from '@/hooks/useReducedMotionPreference';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Animated, {
+  cancelAnimation,
   useSharedValue,
   useAnimatedStyle,
   withTiming,
@@ -8,16 +10,17 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 import type { FloatingPointEvent } from '@/types/game';
-import { TUBE_COUNT, PARTICLE_BURST_DURATION_MS } from '@/utils/constants';
+import { PARTICLE_BURST_DURATION_MS } from '@/utils/constants';
 
 export interface ParticleBurstProps {
-  /** Floating point events to burst for; only 'BOTTLE FULL' entries render a burst. */
+  /** Floating point events to burst for; only 'PERFECT FIT' entries render a burst. */
   events: FloatingPointEvent[];
   boardWidth: number;
+  bottleCount: number;
 }
 
-const RING_COUNT = 3;
-const DOT_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315];
+const RING_COUNT = 1;
+const DOT_ANGLES = [0, 72, 144, 216, 288];
 
 /**
  * Renders a radiating particle-ring burst (concentric fading rings plus
@@ -25,15 +28,24 @@ const DOT_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315];
  * it shares the lifespan of the floating point event that triggered it and
  * unmounts itself; the store owns dismissing the underlying event.
  */
-export default function ParticleBurst({ events, boardWidth }: ParticleBurstProps) {
-  if (boardWidth === 0) return null;
+export default function ParticleBurst({ events, boardWidth, bottleCount }: ParticleBurstProps) {
+  const reduced = useReducedMotionPreference();
+  // Mounting several new animated views is real work; deferring it one frame keeps it off the
+  // same commit as the drop's own feedback (bounce, weight count-up, combo banner), which is what
+  // was piling up into a single dropped frame right at Perfect Fit/combo moments.
+  const [deferredEvents, setDeferredEvents] = useState<FloatingPointEvent[]>(events);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setDeferredEvents(events));
+    return () => cancelAnimationFrame(frame);
+  }, [events]);
+  if (reduced || boardWidth === 0) return null;
 
-  const bursts = events.filter((e) => e.label === 'BOTTLE FULL');
+  const bursts = deferredEvents.filter((e) => e.label === 'PERFECT FIT');
 
   return (
     <>
       {bursts.map((event) => (
-        <Burst key={event.id} x={(boardWidth / TUBE_COUNT) * (event.tubeIndex + 0.5)} />
+        <Burst key={event.id} x={(boardWidth / Math.max(1, bottleCount)) * (event.tubeIndex + 0.5)} />
       ))}
     </>
   );
@@ -44,8 +56,8 @@ function Burst({ x }: { x: number }) {
 
   useEffect(() => {
     progress.value = withTiming(1, { duration: PARTICLE_BURST_DURATION_MS, easing: Easing.out(Easing.quad) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => cancelAnimation(progress);
+  }, [progress]);
 
   return (
     <>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pressable, Text, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
-import { FONTS, UI_COLORS } from '@/utils/constants';
+import { LinearGradient } from 'expo-linear-gradient';
+import { THEME } from './theme';
+import { GAME_FONT } from '../gameplay/assets';
 
 export type ButtonVariant = 'primary' | 'accent' | 'secondary' | 'danger';
 
@@ -14,23 +16,23 @@ export interface ButtonProps {
 }
 
 const FACE_COLOR: Record<ButtonVariant, string> = {
-  primary: '#10b981',
+  primary: THEME.green,
   accent: '#f59e0b',
-  secondary: 'transparent',
-  danger: '#ef4444',
+  secondary: THEME.wood,
+  danger: THEME.rust,
 };
 
 const SHADE_COLOR: Record<ButtonVariant, string> = {
-  primary: '#047857',
+  primary: THEME.greenDark,
   accent: '#b45309',
-  secondary: UI_COLORS.border,
-  danger: '#b91c1c',
+  secondary: THEME.darkWood,
+  danger: '#713d2c',
 };
 
 const TEXT_COLOR: Record<ButtonVariant, string> = {
   primary: '#ffffff',
   accent: '#ffffff',
-  secondary: UI_COLORS.text,
+  secondary: THEME.cream,
   danger: '#ffffff',
 };
 
@@ -47,29 +49,30 @@ export default function Button({ label, onPress, variant = 'primary', disabled =
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
+      accessibilityState={{disabled}}
       accessibilityLabel={accessibilityLabel ?? label}
       style={[
         styles.shadow,
-        { backgroundColor: isOutline ? 'transparent' : SHADE_COLOR[variant] },
+        { backgroundColor: SHADE_COLOR[variant] },
         style,
         disabled && styles.disabled,
       ]}
     >
       {({ pressed }) => (
-        <View
+        <LinearGradient colors={[FACE_COLOR[variant], SHADE_COLOR[variant]]}
           style={[
             styles.face,
             {
               backgroundColor: FACE_COLOR[variant],
               borderWidth: isOutline ? 1.5 : 0,
-              borderColor: UI_COLORS.border,
+              borderColor: THEME.border,
               transform: [{ translateY: pressed ? 3 : 0 }],
-              marginBottom: pressed ? 0 : 3,
+              marginBottom: 3,
             },
           ]}
         >
           <Text style={[styles.label, { color: TEXT_COLOR[variant] }]}>{label}</Text>
-        </View>
+        </LinearGradient>
       )}
     </Pressable>
   );
@@ -81,13 +84,16 @@ const styles = StyleSheet.create({
   },
   face: {
     borderRadius: 999,
-    paddingVertical: 15,
+    paddingVertical: 13,
+    paddingHorizontal: 16,
+    minHeight: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   label: {
     fontSize: 16,
-    fontFamily: FONTS.displayBold,
+    fontFamily: GAME_FONT,
+    fontWeight: '700',
   },
   disabled: {
     opacity: 0.5,

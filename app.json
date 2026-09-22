@@ -9,17 +9,34 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "assets/runtime/**/*",
+      "assets/thumbnails/**/*",
+      "assets/weights/**/*",
+      "assets/audio/**/*",
+      "assets/icon.png",
+      "assets/adaptive-icon.png",
+      "assets/favicon.png"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.balancekeeper.game"
+      "bundleIdentifier": "com.balancekeeper.game",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0f172a"
       },
-      "package": "com.balancekeeper.game"
+      "package": "com.balancekeeper.game",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -30,11 +47,26 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/splash.png",
+          "image": "./assets/icon.png",
           "resizeMode": "contain",
           "backgroundColor": "#0f172a"
         }
+      ],
+      "expo-audio",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-1563611163993912~1640393419",
+          "iosAppId": "ca-app-pub-3940256099942544~1458002511",
+          "delayAppMeasurementInit": true
+        }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "9d20d029-0907-4ad6-ab75-aac1c13ccef5"
+      }
+    }
   }
 }

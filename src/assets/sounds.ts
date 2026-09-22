@@ -1,0 +1,22 @@
+/** One entry per short SFX clip in assets/audio/sfx, keyed to match SoundEffect names. */
+export const SOUND_ASSETS = {
+  ballPickup: require('../../assets/audio/sfx/ball-pickup.wav'),
+  ballDrop: require('../../assets/audio/sfx/ball-drop.wav'),
+  ballBounce: require('../../assets/audio/sfx/ball-bounce.wav'),
+  correct: require('../../assets/audio/sfx/correct.wav'),
+  invalidDrop: require('../../assets/audio/sfx/invalid-drop.wav'),
+  bottleCrack1: require('../../assets/audio/sfx/bottle-crack-1.wav'),
+  bottleCrack2: require('../../assets/audio/sfx/bottle-crack-2.wav'),
+  bottleBreak: require('../../assets/audio/sfx/bottle-break.wav'),
+  warning: require('../../assets/audio/sfx/warning.wav'),
+  levelComplete: require('../../assets/audio/sfx/level-complete.wav'),
+  levelFailed: require('../../assets/audio/sfx/level-failed.wav'),
+  buttonTap: require('../../assets/audio/sfx/button-tap.wav'),
+  back: require('../../assets/audio/sfx/back.wav'),
+  shopOpen: require('../../assets/audio/sfx/shop-open.wav'),
+  itemSelect: require('../../assets/audio/sfx/item-select.wav'),
+  purchase: require('../../assets/audio/sfx/purchase.wav'),
+  purchaseFailed: require('../../assets/audio/sfx/purchase-failed.wav'),
+  coin: require('../../assets/audio/sfx/coin.wav'),
+  unlock: require('../../assets/audio/sfx/unlock.wav'),
+};
